@@ -2,9 +2,8 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HENRIS – Luxury Perfumes</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Inter&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -12,25 +11,21 @@
 
 <header>
   <div class="logo">HENRIS</div>
-  <nav>
+  <nav class="nav-right">
+    <a href="nosotros.html">Nosotros</a>
     <a href="stock.html">Stock</a>
     <a href="pedidos.html">Pedidos</a>
+    <a href="carrito.html" class="cart">🛒 <span id="cart-count">0</span></a>
   </nav>
 </header>
 
 <section class="hero">
   <h1>Luxury Fragrances</h1>
-  <p>Perfumes originales importados de casas exclusivas</p>
-
-  <div class="hero-buttons">
-    <a href="stock.html" class="btn">Ver Stock</a>
-    <a href="pedidos.html" class="btn outline">Perfumes a Pedido</a>
-  </div>
+  <p>Importadores de perfumes originales</p>
 </section>
 
-<footer>
-  © 2025 HENRIS – Luxury Perfumes
-</footer>
+<footer>© 2025 HENRIS</footer>
 
+<script src="carrito.js"></script>
 </body>
 </html>
