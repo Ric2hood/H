@@ -2,48 +2,34 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>HENRIS – Carrito</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carrito - HENRIS</title>
 <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
 
 <header>
   <div class="logo">HENRIS</div>
-  <nav class="nav-right">
-    <a href="index.html">Inicio</a>
-    <a href="stock.html">Stock</a>
-    <a href="pedidos.html">Pedidos</a>
-  </nav>
 </header>
 
-<section class="page-title">
-  <h2>Carrito</h2>
-</section>
+<section class="grid" id="items"></section>
 
-<section class="grid" id="cart-items"></section>
-
-<section style="padding:80px; text-align:center;">
-  <h3 id="total"></h3>
-  <button class="btn">Pagar carrito</button>
+<section class="hero">
+  <h2 id="total"></h2>
+  <button>Pagar carrito</button>
 </section>
 
 <script>
 const cart = JSON.parse(localStorage.getItem('cart')) || [];
 let total = 0;
-const container = document.getElementById('cart-items');
+const items = document.getElementById("items");
 
-cart.forEach(item => {
-  total += item.price;
-  container.innerHTML += `
-    <div class="card">
-      <h3>${item.name}</h3>
-      <p class="price">S/ ${item.price}</p>
-    </div>
-  `;
+cart.forEach(p => {
+  total += p.price;
+  items.innerHTML += `<div class="card"><h3>${p.name}</h3><p>S/ ${p.price}</p></div>`;
 });
 
-document.getElementById('total').textContent = 'Total: S/ ' + total;
+document.getElementById("total").textContent = "Total: S/ " + total;
 </script>
 
 </body>
