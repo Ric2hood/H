@@ -2,42 +2,37 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>HENRIS – Stock</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stock - HENRIS</title>
 <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
 
 <header>
   <div class="logo">HENRIS</div>
   <nav class="nav-right">
+    <a href="index.html">Inicio</a>
     <a href="nosotros.html">Nosotros</a>
     <a href="pedidos.html">Pedidos</a>
     <a href="carrito.html" class="cart">🛒 <span id="cart-count">0</span></a>
   </nav>
 </header>
 
-<section class="page-title">
-  <h2>Stock Disponible</h2>
-</section>
-
 <section class="grid">
   <div class="card">
-    <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f">
+    <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539">
     <h3>Dior Sauvage</h3>
-    <p class="price">S/ 499 · 3 unidades</p>
-    <button onclick="addToCart('Dior Sauvage', 499)">Agregar al carrito</button>
+    <p class="price">S/ 520 (3 disponibles)</p>
+    <button onclick="addToCart('Dior Sauvage', 520)">Agregar</button>
   </div>
 
   <div class="card">
     <img src="https://images.unsplash.com/photo-1585386959984-a41552231693">
     <h3>Versace Eros</h3>
-    <p class="price">S/ 520 · 2 unidades</p>
-    <button onclick="addToCart('Versace Eros', 520)">Agregar al carrito</button>
+    <p class="price">S/ 490 (2 disponibles)</p>
+    <button onclick="addToCart('Versace Eros', 490)">Agregar</button>
   </div>
 </section>
-
-<footer>© 2025 HENRIS</footer>
 
 <script src="carrito.js"></script>
 </body>
