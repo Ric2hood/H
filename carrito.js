@@ -1,3 +1,4 @@
+<script>
 function getCart() {
   return JSON.parse(localStorage.getItem('cart')) || [];
 }
@@ -11,12 +12,13 @@ function addToCart(name, price) {
   const cart = getCart();
   cart.push({ name, price });
   saveCart(cart);
-  alert('Producto agregado al carrito');
+  alert("Agregado al carrito");
 }
 
 function updateCartCount() {
-  const count = document.getElementById('cart-count');
+  const count = document.getElementById("cart-count");
   if (count) count.textContent = getCart().length;
 }
 
-document.addEventListener('DOMContentLoaded', updateCartCount);
+document.addEventListener("DOMContentLoaded", updateCartCount);
+</script>
