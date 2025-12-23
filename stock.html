@@ -2,7 +2,6 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HENRIS – Stock</title>
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -11,44 +10,35 @@
 
 <header>
   <div class="logo">HENRIS</div>
-  <nav>
-    <a href="index.html">Inicio</a>
+  <nav class="nav-right">
+    <a href="nosotros.html">Nosotros</a>
     <a href="pedidos.html">Pedidos</a>
+    <a href="carrito.html" class="cart">🛒 <span id="cart-count">0</span></a>
   </nav>
 </header>
 
 <section class="page-title">
-  <h2>Perfumes en Stock</h2>
-  <p>Disponibles para entrega inmediata</p>
-  <span class="count">3 perfumes disponibles</span>
+  <h2>Stock Disponible</h2>
 </section>
 
 <section class="grid">
   <div class="card">
     <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f">
     <h3>Dior Sauvage</h3>
-    <p class="price">S/ 499</p>
-    <button>Comprar</button>
+    <p class="price">S/ 499 · 3 unidades</p>
+    <button onclick="addToCart('Dior Sauvage', 499)">Agregar al carrito</button>
   </div>
 
   <div class="card">
     <img src="https://images.unsplash.com/photo-1585386959984-a41552231693">
     <h3>Versace Eros</h3>
-    <p class="price">S/ 520</p>
-    <button>Comprar</button>
-  </div>
-
-  <div class="card">
-    <img src="https://images.unsplash.com/photo-1600180758890-6b94519a8ba6">
-    <h3>YSL Y</h3>
-    <p class="price">S/ 510</p>
-    <button>Comprar</button>
+    <p class="price">S/ 520 · 2 unidades</p>
+    <button onclick="addToCart('Versace Eros', 520)">Agregar al carrito</button>
   </div>
 </section>
 
-<footer>
-  © 2025 HENRIS
-</footer>
+<footer>© 2025 HENRIS</footer>
 
+<script src="carrito.js"></script>
 </body>
 </html>
