@@ -1,55 +1,83 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HENRIS</title>
-<link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <title>HENRIS | Perfumes de Lujo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Estilos base -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Iconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
-<header>
-  <div class="logo">HENRIS</div>
-  <nav class="nav-right">
-    <a href="nosotros.html">Nosotros</a>
-    <a href="stock.html">Stock</a>
-    <a href="pedidos.html">Pedidos</a>
-    <a href="carrito.html" class="cart">🛒 <span id="cart-count">0</span></a>
-  </nav>
-</header>
+  <!-- HEADER / NAV -->
+  <header class="header">
+    <div class="logo">HENRIS</div>
 
-<!-- INICIO -->
-<section class="hero" style="min-height:80vh; display:flex; flex-direction:column; justify-content:center;">
+    <nav class="nav">
+      <a href="nosotros.html">Nosotros</a>
+      <a href="stock.html">Stock</a>
+      <a href="pedidos.html">Pedidos</a>
+      <a href="carrito.html" class="cart-icon">
+        <i class="fa-solid fa-cart-shopping"></i>
+      </a>
+    </nav>
+  </header>
 
-  <!-- TEXTO -->
-  <div class="fade-up">
-    <h1>HENRIS</h1>
-    <p>Maison de Parfums</p>
-  </div>
+  <!-- HERO / INICIO -->
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Fragancias que definen presencia</h1>
+      <p>
+        Perfumes originales de alta gama.  
+        Importados con garantía y elegancia.
+      </p>
 
-  <!-- TEXTO SECUNDARIO -->
-  <div class="fade-up delay-1">
-    <p style="margin-top:10px; color:#666;">
-      Fragancias originales · Selección exclusiva
-    </p>
-  </div>
+      <div class="hero-buttons">
+        <a href="stock.html" class="btn-primary">Ver Stock</a>
+        <a href="pedidos.html" class="btn-secondary">Pedidos Especiales</a>
+      </div>
+    </div>
 
-  <!-- IMAGEN PERFUME -->
-  <div class="fade-up delay-2" style="margin-top:40px;">
-    <img 
-      src="perfumeinicio.png"
-      alt="Perfume HENRIS"
-      style="
-        width:100%;
-        max-width:260px;
-        margin:auto;
-        display:block;
-      "
-    >
-  </div>
+    <div class="hero-image">
+      <!-- Imagen generada del perfume HENRIS -->
+      <img src="perfumehenris.png" alt="Perfume HENRIS">
+    </div>
+  </section>
 
-</section>
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>© 2025 HENRIS · Perfumes de Lujo</p>
+  </footer>
 
-<script src="carrito.js"></script>
+  <!-- ================= FIREBASE ================= -->
+
+  <script type="module">
+    // Importar Firebase
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
+    import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
+
+    // Configuración Firebase (LA TUYA)
+    const firebaseConfig = {
+      apiKey: "AIzaSyCmFlJ158GJOlRaF1kdmdGirTXl_SRhO_4",
+      authDomain: "henris-40e93.firebaseapp.com",
+      projectId: "henris-40e93",
+      storageBucket: "henris-40e93.firebasestorage.app",
+      messagingSenderId: "18141344120",
+      appId: "1:18141344120:web:a4bd31020ed4298a9c188d",
+      measurementId: "G-RYB6BVCMBS"
+    };
+
+    // Inicializar Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Hacemos db global (para usarla en stock.js luego)
+    window.db = db;
+  </script>
+
 </body>
 </html>
