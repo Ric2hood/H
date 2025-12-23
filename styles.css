@@ -120,161 +120,95 @@ button {
     transform: translateY(0);
   }
 }
-/* ===============================
-   SECCIÓN INICIO (HERO)
-   =============================== */
-
-.hero {
-  min-height: 90vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* ===== SECCIÓN TÍTULO ===== */
+.section-title {
+  padding: 40px 20px 20px;
   text-align: center;
-  padding: 20px;
-  background: radial-gradient(circle at top, #1a1a1a, #000);
 }
 
-.hero-content {
-  max-width: 500px;
-  animation: fadeUp 1.2s ease forwards;
-}
-
-.hero h1 {
-  font-size: 2.2rem;
-  letter-spacing: 2px;
-  margin-bottom: 15px;
-}
-
-.hero p {
-  font-size: 1rem;
-  opacity: 0.85;
-  margin-bottom: 25px;
-}
-
-/* Imagen del perfume */
-.hero-perfume {
-  width: 220px;
-  max-width: 80%;
-  margin: 0 auto 25px;
-  display: block;
-  animation: float 4s ease-in-out infinite;
-}
-
-/* ===============================
-   BOTÓN PRINCIPAL
-   =============================== */
-
-.btn-principal {
-  display: inline-block;
-  padding: 12px 28px;
-  border: 1px solid #fff;
-  color: #fff;
-  text-decoration: none;
+.section-title h1 {
+  font-size: 1.6rem;
+  font-weight: 600;
   letter-spacing: 1px;
-  transition: all 0.3s ease;
 }
 
-.btn-principal:hover {
-  background: #fff;
-  color: #000;
+.section-title p {
+  font-size: 0.95rem;
+  color: #666;
+  margin-top: 8px;
 }
 
-/* ===============================
-   STOCK / PRODUCTOS
-   =============================== */
-
+/* ===== GRID DE PRODUCTOS ===== */
 .productos-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 20px;
   padding: 20px;
 }
 
-.producto {
-  background: rgba(255,255,255,0.03);
-  border-radius: 14px;
-  padding: 14px;
+/* ===== CARD PRODUCTO ===== */
+.producto-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 16px;
   text-align: center;
-  transition: transform 0.3s ease;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.producto:hover {
-  transform: translateY(-6px);
+.producto-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.1);
 }
 
-.producto img {
+.producto-card img {
   width: 100%;
   max-height: 160px;
   object-fit: contain;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
-.producto h3 {
+.producto-card h3 {
   font-size: 0.95rem;
+  font-weight: 600;
   margin-bottom: 6px;
 }
 
 .precio {
-  font-weight: bold;
+  font-size: 1rem;
+  font-weight: 600;
   margin-bottom: 6px;
 }
 
 .stock {
-  font-size: 0.8rem;
-  opacity: 0.7;
+  font-size: 0.85rem;
+  color: #777;
   margin-bottom: 10px;
 }
 
-.producto button {
+/* ===== BOTÓN ===== */
+.producto-card button {
   width: 100%;
-  padding: 8px;
-  border-radius: 8px;
+  padding: 10px;
+  border-radius: 30px;
   border: none;
-  background: #fff;
-  color: #000;
   font-size: 0.85rem;
   cursor: pointer;
 }
 
-/* ===============================
-   ANIMACIONES
-   =============================== */
-
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.producto-card button:disabled {
+  background: #ddd;
+  color: #999;
+  cursor: not-allowed;
 }
 
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-/* ===============================
-   RESPONSIVE PC
-   =============================== */
-
+/* ===== DESKTOP ===== */
 @media (min-width: 768px) {
-  .hero h1 {
-    font-size: 3rem;
-  }
-
-  .hero-perfume {
-    width: 260px;
+  .section-title h1 {
+    font-size: 2rem;
   }
 
   .productos-grid {
-    max-width: 1100px;
-    margin: auto;
+    padding: 40px 80px;
   }
 }
