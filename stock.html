@@ -1,39 +1,119 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stock - HENRIS</title>
-<link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <title>HENRIS | Stock Disponible</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Estilos base -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Iconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
-<header>
-  <div class="logo">HENRIS</div>
-  <nav class="nav-right">
-    <a href="index.html">Inicio</a>
-    <a href="nosotros.html">Nosotros</a>
-    <a href="pedidos.html">Pedidos</a>
-    <a href="carrito.html" class="cart">🛒 <span id="cart-count">0</span></a>
-  </nav>
-</header>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="logo">HENRIS</div>
 
-<section class="grid">
-  <div class="card">
-    <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539">
-    <h3>Dior Sauvage</h3>
-    <p class="price">S/ 520 (3 disponibles)</p>
-    <button onclick="addToCart('Dior Sauvage', 520)">Agregar</button>
-  </div>
+    <nav class="nav">
+      <a href="nosotros.html">Nosotros</a>
+      <a href="stock.html" class="active">Stock</a>
+      <a href="pedidos.html">Pedidos</a>
+      <a href="carrito.html" class="cart-icon">
+        <i class="fa-solid fa-cart-shopping"></i>
+      </a>
+    </nav>
+  </header>
 
-  <div class="card">
-    <img src="https://images.unsplash.com/photo-1585386959984-a41552231693">
-    <h3>Versace Eros</h3>
-    <p class="price">S/ 490 (2 disponibles)</p>
-    <button onclick="addToCart('Versace Eros', 490)">Agregar</button>
-  </div>
-</section>
+  <!-- TÍTULO -->
+  <section class="section-title">
+    <h1>Perfumes en Stock</h1>
+    <p>Disponibilidad inmediata · Productos originales</p>
+  </section>
 
-<script src="carrito.js"></script>
+  <!-- GRID DE PRODUCTOS -->
+  <section class="productos-grid" id="productosStock">
+    <!-- Firebase insertará aquí los perfumes -->
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>© 2025 HENRIS · Perfumes de Lujo</p>
+  </footer>
+
+  <!-- ================= FIREBASE + STOCK ================= -->
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
+    import { getFirestore, collection, getDocs } from 
+      "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
+
+    // 🔐 Configuración Firebase (LA TUYA)
+    const firebaseConfig = {
+      apiKey: "AIzaSyCmFlJ158GJOlRaF1kdmdGirTXl_SRhO_4",
+      authDomain: "henris-40e93.firebaseapp.com",
+      projectId: "henris-40e93",
+      storageBucket: "henris-40e93.firebasestorage.app",
+      messagingSenderId: "18141344120",
+      appId: "1:18141344120:web:a4bd31020ed4298a9c188d",
+      measurementId: "G-RYB6BVCMBS"
+    };
+
+    // Inicializar Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const contenedor = document.getElementById("productosStock");
+
+    // Leer perfumes en stock desde Firestore
+    const cargarStock = async () => {
+      const querySnapshot = await getDocs(collection(db, "perfumes"));
+
+      contenedor.innerHTML = "";
+
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+
+        // SOLO STOCK
+        if (data.tipo !== "stock") return;
+
+        const disponible = data.stock > 0;
+
+        const producto = document.createElement("div");
+        producto.className = "producto-card";
+
+        producto.innerHTML = `
+          <img src="${data.imagen}" alt="${data.nombre}">
+          <h3>${data.nombre}</h3>
+          <p class="precio">S/ ${data.precio}</p>
+          <p class="stock">
+            ${disponible ? `Stock: ${data.stock}` : "Agotado"}
+          </p>
+          <button 
+            class="btn-primary"
+            ${!disponible ? "disabled" : ""}
+            onclick="agregarAlCarrito('${doc.id}')"
+          >
+            ${disponible ? "Agregar al carrito" : "Sin stock"}
+          </button>
+        `;
+
+        contenedor.appendChild(producto);
+      });
+    };
+
+    cargarStock();
+
+    // Carrito simple (localStorage por ahora)
+    window.agregarAlCarrito = (id) => {
+      let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+      carrito.push(id);
+      localStorage.setItem("carrito", JSON.stringify(carrito));
+      alert("Perfume agregado al carrito");
+    };
+  </script>
+
 </body>
 </html>
