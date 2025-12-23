@@ -2,49 +2,28 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>HENRIS – Pedidos</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pedidos - HENRIS</title>
 <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
 
 <header>
   <div class="logo">HENRIS</div>
   <nav class="nav-right">
+    <a href="index.html">Inicio</a>
     <a href="nosotros.html">Nosotros</a>
     <a href="stock.html">Stock</a>
     <a href="carrito.html" class="cart">🛒 <span id="cart-count">0</span></a>
   </nav>
 </header>
 
-<section class="page-title">
-  <h2>Perfumes a Pedido</h2>
-</section>
-
 <section class="grid">
-  <div class="card">
-    <img src="https://images.unsplash.com/photo-1615484477778-ca3b77940c25">
-    <h3>Tom Ford Oud Wood</h3>
-    <p class="price">Desde S/ 890</p>
-    <button onclick="addToCart('Tom Ford Oud Wood', 890)">Agregar al carrito</button>
-  </div>
-
-  <div class="card">
-    <img src="https://images.unsplash.com/photo-1618354691229-88d47f285158">
-    <h3>Bleu de Chanel</h3>
-    <p class="price">Desde S/ 620</p>
-    <button onclick="addToCart('Bleu de Chanel', 620)">Agregar al carrito</button>
-  </div>
-
-  <div class="card">
-    <img src="https://images.unsplash.com/photo-1616627989143-3f8e8e46e4f1">
-    <h3>Creed Aventus</h3>
-    <p class="price">Desde S/ 1150</p>
-    <button onclick="addToCart('Creed Aventus', 1150)">Agregar al carrito</button>
-  </div>
+  <div class="card"><img src="https://images.unsplash.com/photo-1610465299993-3c6a43f77f3d"><h3>Bleu de Chanel</h3><p class="price">S/ 650</p><button onclick="addToCart('Bleu de Chanel',650)">Agregar</button></div>
+  <div class="card"><img src="https://images.unsplash.com/photo-1610465299615-df46e70f2d56"><h3>YSL Y</h3><p class="price">S/ 630</p><button onclick="addToCart('YSL Y',630)">Agregar</button></div>
+  <div class="card"><img src="https://images.unsplash.com/photo-1585386959984-a41552231693"><h3>Armani Code</h3><p class="price">S/ 640</p><button onclick="addToCart('Armani Code',640)">Agregar</button></div>
+  <div class="card"><img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539"><h3>Jean Paul Gaultier</h3><p class="price">S/ 670</p><button onclick="addToCart('JPG',670)">Agregar</button></div>
 </section>
-
-<footer>© 2025 HENRIS</footer>
 
 <script src="carrito.js"></script>
 </body>
