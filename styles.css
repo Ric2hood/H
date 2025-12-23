@@ -1,3 +1,4 @@
+/* ================= RESET ================= */
 * {
   margin: 0;
   padding: 0;
@@ -10,8 +11,8 @@ body {
   color: #111;
 }
 
-/* HEADER */
-header {
+/* ================= HEADER ================= */
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -24,25 +25,29 @@ header {
   letter-spacing: 3px;
 }
 
-.nav-right {
+.nav {
   display: flex;
   gap: 16px;
   align-items: center;
 }
 
-.nav-right a {
+.nav a {
   text-decoration: none;
   color: #111;
   font-size: 14px;
 }
 
-.cart {
+.nav a.active {
+  font-weight: bold;
+}
+
+.cart-icon {
   font-size: 18px;
 }
 
-/* HERO */
+/* ================= HERO / INICIO ================= */
 .hero {
-  padding: 80px 20px;
+  padding: 60px 20px;
   text-align: center;
 }
 
@@ -54,65 +59,54 @@ header {
 .hero p {
   font-size: 16px;
   color: #666;
+  margin-bottom: 20px;
 }
 
-/* GRID */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 20px;
-  padding: 30px;
+.hero-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 20px;
 }
 
-.card {
-  border: 1px solid #eee;
-  padding: 15px;
-  text-align: center;
-}
-
-.card img {
-  width: 100%;
-  height: 180px;
-  object-fit: contain;
-}
-
-.card h3 {
+.btn-primary,
+.btn-secondary {
+  padding: 10px 18px;
+  border-radius: 30px;
   font-size: 14px;
-  margin: 10px 0;
-}
-
-.price {
-  font-size: 14px;
-  margin-bottom: 10px;
-}
-
-button {
-  padding: 10px;
-  border: 1px solid #111;
-  background: none;
+  text-decoration: none;
   cursor: pointer;
 }
 
-/* PC */
-@media (min-width: 768px) {
-  .hero h1 {
-    font-size: 42px;
-  }
+.btn-primary {
+  background: #111;
+  color: #fff;
 }
-/* ANIMACIÓN INICIO */
+
+.btn-secondary {
+  border: 1px solid #111;
+  color: #111;
+}
+
+/* Imagen del perfume */
+.hero-image {
+  margin-top: 40px;
+}
+
+.hero-image img {
+  width: 100%;
+  max-width: 280px;
+}
+
+/* ================= ANIMACIONES ================= */
 .fade-up {
   opacity: 0;
   transform: translateY(10px);
   animation: fadeUp 0.8s ease forwards;
 }
 
-.fade-up.delay-1 {
-  animation-delay: 0.2s;
-}
-
-.fade-up.delay-2 {
-  animation-delay: 0.4s;
-}
+.fade-up.delay-1 { animation-delay: 0.2s; }
+.fade-up.delay-2 { animation-delay: 0.4s; }
 
 @keyframes fadeUp {
   to {
@@ -120,7 +114,8 @@ button {
     transform: translateY(0);
   }
 }
-/* ===== SECCIÓN TÍTULO ===== */
+
+/* ================= SECCIÓN TÍTULO ================= */
 .section-title {
   padding: 40px 20px 20px;
   text-align: center;
@@ -138,7 +133,7 @@ button {
   margin-top: 8px;
 }
 
-/* ===== GRID DE PRODUCTOS ===== */
+/* ================= GRID PRODUCTOS ================= */
 .productos-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -146,69 +141,94 @@ button {
   padding: 20px;
 }
 
-/* ===== CARD PRODUCTO ===== */
+/* ================= CARD PRODUCTO ================= */
 .producto-card {
   background: #fff;
+  border: 1px solid #eee;
   border-radius: 16px;
   padding: 16px;
   text-align: center;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.producto-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgba(0,0,0,0.1);
 }
 
 .producto-card img {
   width: 100%;
-  max-height: 160px;
+  height: 180px;
   object-fit: contain;
   margin-bottom: 12px;
 }
 
 .producto-card h3 {
-  font-size: 0.95rem;
-  font-weight: 600;
+  font-size: 14px;
   margin-bottom: 6px;
 }
 
 .precio {
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: bold;
   margin-bottom: 6px;
 }
 
 .stock {
-  font-size: 0.85rem;
-  color: #777;
+  font-size: 12px;
+  color: #666;
   margin-bottom: 10px;
 }
 
-/* ===== BOTÓN ===== */
+/* ================= BOTONES ================= */
 .producto-card button {
   width: 100%;
   padding: 10px;
   border-radius: 30px;
-  border: none;
-  font-size: 0.85rem;
+  border: 1px solid #111;
+  background: none;
+  font-size: 13px;
   cursor: pointer;
 }
 
 .producto-card button:disabled {
-  background: #ddd;
-  color: #999;
+  border-color: #ccc;
+  color: #aaa;
   cursor: not-allowed;
 }
 
-/* ===== DESKTOP ===== */
+/* ================= FOOTER ================= */
+.footer {
+  text-align: center;
+  padding: 30px 20px;
+  font-size: 13px;
+  color: #777;
+  border-top: 1px solid #eee;
+  margin-top: 40px;
+}
+
+/* ================= DESKTOP ================= */
 @media (min-width: 768px) {
-  .section-title h1 {
-    font-size: 2rem;
+  .hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    text-align: left;
+    padding: 100px 80px;
+  }
+
+  .hero-text {
+    max-width: 420px;
+  }
+
+  .hero h1 {
+    font-size: 42px;
+  }
+
+  .hero-image img {
+    max-width: 320px;
   }
 
   .productos-grid {
     padding: 40px 80px;
+  }
+
+  .section-title h1 {
+    font-size: 2rem;
   }
 }
