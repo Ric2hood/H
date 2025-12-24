@@ -30,11 +30,15 @@ function mostrarPerfumes() {
 form.addEventListener('submit', (e) => {
   e.preventDefault();
 
-  const nombre = document.getElementById('nombre').value;
+  const nombre = document.getElementById('nombre').value.trim();
   const precio = parseFloat(document.getElementById('precio').value);
   const stock = parseInt(document.getElementById('stock').value);
   const tipo = document.getElementById('tipo').value;
   const file = document.getElementById('imagen').files[0];
+
+  if (!nombre || isNaN(precio) || isNaN(stock) || !tipo) {
+    return alert('Completa todos los campos correctamente');
+  }
 
   if (!file) return alert('Selecciona una imagen');
 
@@ -100,7 +104,7 @@ function mostrarPedidos() {
       </ul>
       <p><strong>Total:</strong> S/ ${pedido.total}</p>
       <div class="acciones">
-        <button class="editar" onclick="marcarEntregado(${index})">Entregado</button>
+        <button class="entregado" onclick="marcarEntregado(${index})">Entregado</button>
         <button class="borrar" onclick="borrarPedido(${index})">Borrar</button>
       </div>
     `;
