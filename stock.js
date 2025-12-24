@@ -32,18 +32,37 @@ function agregarAlCarrito(nombre) {
   carrito.push(producto);
   localStorage.setItem("carrito", JSON.stringify(carrito));
 
-  // Animación de éxito al agregar
+  // Animación de éxito mejorada
   const alerta = document.createElement("div");
-  alerta.textContent = "Añadido al carrito exitosamente ✅";
+  alerta.textContent = "✅ Añadido al carrito";
   alerta.style.position = "fixed";
   alerta.style.bottom = "20px";
   alerta.style.right = "20px";
-  alerta.style.padding = "12px 20px";
+  alerta.style.padding = "14px 22px";
   alerta.style.background = "#111";
   alerta.style.color = "#fff";
-  alerta.style.borderRadius = "8px";
+  alerta.style.fontWeight = "bold";
+  alerta.style.borderRadius = "12px";
   alerta.style.zIndex = "9999";
+  alerta.style.boxShadow = "0 4px 10px rgba(0,0,0,0.3)";
+  alerta.style.transform = "translateY(40px) scale(0.8)";
+  alerta.style.opacity = "0";
+  alerta.style.transition = "all 0.5s ease-out";
+
   document.body.appendChild(alerta);
 
-  setTimeout(() => alerta.remove(), 2500);
+  // Animación de entrada
+  requestAnimationFrame(() => {
+    alerta.style.transform = "translateY(0) scale(1)";
+    alerta.style.opacity = "1";
+  });
+
+  // Animación de salida
+  setTimeout(() => {
+    alerta.style.transform = "translateY(-40px) scale(0.8)";
+    alerta.style.opacity = "0";
+  }, 1800);
+
+  // Borrar del DOM
+  setTimeout(() => alerta.remove(), 2300);
 }
