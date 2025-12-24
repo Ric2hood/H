@@ -1,9 +1,10 @@
-// ================= PERFUMES =================
 const form = document.getElementById('formPerfume');
 const productosAdmin = document.getElementById('productosAdmin');
+const pedidosAdmin = document.getElementById('pedidosAdmin');
 
-// Cargar perfumes desde localStorage
+// Cargar perfumes y pedidos desde localStorage
 let perfumes = JSON.parse(localStorage.getItem('perfumes')) || [];
+let pedidos = JSON.parse(localStorage.getItem('pedidos')) || [];
 
 // Mostrar perfumes en admin
 function mostrarPerfumes() {
@@ -18,15 +19,48 @@ function mostrarPerfumes() {
       <p>Stock: ${perfume.stock}</p>
       <p>Tipo: ${perfume.tipo}</p>
       <div class="acciones">
-        <button class="editar" onclick="editarPerfume(${index})">Editar</button>
-        <button class="borrar" onclick="borrarPerfume(${index})">Borrar</button>
+        <button onclick="editarPerfume(${index})">Editar</button>
+        <button onclick="borrarPerfume(${index})">Borrar</button>
       </div>
     `;
     productosAdmin.appendChild(div);
   });
 }
 
-// Agregar nuevo perfume
+// Mostrar pedidos recibidos
+function mostrarPedidos() {
+  pedidosAdmin.innerHTML = '';
+  if (pedidos.length === 0) {
+    pedidosAdmin.innerHTML = '<p>No hay pedidos aún.</p>';
+    return;
+  }
+
+  pedidos.forEach((pedido, index) => {
+    const div = document.createElement('div');
+    div.className = 'pedido-card';
+    div.innerHTML = `
+      <h4>Pedido #${index + 1}</h4>
+      <p><strong>Nombre:</strong> ${pedido.nombre}</p>
+      <p><strong>Teléfono:</strong> ${pedido.telefono}</p>
+      <p><strong>Correo:</strong> ${pedido.correo}</p>
+      <p><strong>Dirección:</strong> ${pedido.direccion}</p>
+      <p><strong>Productos:</strong> ${pedido.items.map(i => i.nombre).join(', ')}</p>
+      <p><strong>Total:</strong> S/ ${pedido.total}</p>
+      <p><strong>Estado:</strong> ${pedido.estado || 'Pendiente'}</p>
+      <button onclick="marcarEntregado(${index})">Marcar como entregado</button>
+    `;
+    pedidosAdmin.appendChild(div);
+  });
+}
+
+// Marcar pedido como entregado
+window.marcarEntregado = (index) => {
+  pedidos[index].estado = 'Entregado';
+  localStorage.setItem('pedidos', JSON.stringify(pedidos));
+  mostrarPedidos();
+};
+
+// Agregar nuevo perfume con imagen subida desde PC
 form.addEventListener('submit', (e) => {
   e.preventDefault();
 
@@ -35,10 +69,6 @@ form.addEventListener('submit', (e) => {
   const stock = parseInt(document.getElementById('stock').value);
   const tipo = document.getElementById('tipo').value;
   const file = document.getElementById('imagen').files[0];
-
-  if (!nombre || isNaN(precio) || isNaN(stock) || !tipo) {
-    return alert('Completa todos los campos correctamente');
-  }
 
   if (!file) return alert('Selecciona una imagen');
 
@@ -80,54 +110,4 @@ window.editarPerfume = (index) => {
 
 // Mostrar al cargar
 mostrarPerfumes();
-
-// ================= PEDIDOS =================
-const pedidosAdmin = document.getElementById('pedidosAdmin');
-
-// Cargar pedidos desde localStorage
-let pedidos = JSON.parse(localStorage.getItem('pedidos')) || [];
-
-// Mostrar pedidos
-function mostrarPedidos() {
-  pedidosAdmin.innerHTML = '';
-  pedidos.forEach((pedido, index) => {
-    const div = document.createElement('div');
-    div.className = 'pedido-card';
-    div.innerHTML = `
-      <p><strong>#${index + 1} - Pedido de:</strong> ${pedido.nombreCliente}</p>
-      <p><strong>Teléfono:</strong> ${pedido.telefono}</p>
-      <p><strong>Correo:</strong> ${pedido.correo}</p>
-      <p><strong>Dirección:</strong> ${pedido.direccion}</p>
-      <p><strong>Productos:</strong></p>
-      <ul>
-        ${pedido.productos.map(p => `<li>${p.nombre} x${p.cantidad}</li>`).join('')}
-      </ul>
-      <p><strong>Total:</strong> S/ ${pedido.total}</p>
-      <div class="acciones">
-        <button class="entregado" onclick="marcarEntregado(${index})">Entregado</button>
-        <button class="borrar" onclick="borrarPedido(${index})">Borrar</button>
-      </div>
-    `;
-    pedidosAdmin.appendChild(div);
-  });
-}
-
-// Marcar pedido como entregado
-window.marcarEntregado = (index) => {
-  pedidos[index].entregado = true;
-  localStorage.setItem('pedidos', JSON.stringify(pedidos));
-  alert(`Pedido #${index + 1} marcado como entregado`);
-  mostrarPedidos();
-}
-
-// Borrar pedido
-window.borrarPedido = (index) => {
-  if (confirm('¿Deseas borrar este pedido?')) {
-    pedidos.splice(index, 1);
-    localStorage.setItem('pedidos', JSON.stringify(pedidos));
-    mostrarPedidos();
-  }
-}
-
-// Mostrar pedidos al cargar
 mostrarPedidos();
