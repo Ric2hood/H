@@ -44,11 +44,11 @@ header {
   font-size: 15px;
 }
 
+/* Quitar subrayado y color morado */
 .nav-right a.active {
-  border-bottom: 1px solid #111;
+  border-bottom: none;
 }
 
-/* Quitar color morado y subrayado automático */
 .nav-right a:visited,
 .nav-right a:hover,
 .nav-right a:active {
