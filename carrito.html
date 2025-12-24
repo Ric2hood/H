@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Carrito – HENRIS</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
@@ -19,88 +20,26 @@
     </nav>
   </header>
 
-  <!-- SECCIÓN CARRITO -->
-  <section class="carrito">
+  <!-- CARRITO -->
+  <main class="carrito">
     <h1>Tu Carrito</h1>
-    <div id="carrito-items"></div>
+    <div id="carrito-items" class="carrito-items"></div>
     <p class="carrito-total" id="carrito-total">Total: S/ 0</p>
 
     <h2>Datos para el envío</h2>
-    <form id="form-pago">
+    <form id="form-pago" class="form-pago">
       <input type="text" id="nombre" placeholder="Nombre completo" required>
       <input type="email" id="correo" placeholder="Correo electrónico" required>
       <input type="text" id="telefono" placeholder="Teléfono" required>
-      <textarea id="direccion" placeholder="Dirección" required></textarea>
-      <button type="submit">Pagar carrito (prueba)</button>
+      <textarea id="direccion" placeholder="Dirección completa" required></textarea>
+      <button type="submit" class="btn-primary">Pagar carrito (prueba)</button>
     </form>
-  </section>
+  </main>
 
   <footer class="footer">
     <p>© 2025 HENRIS · Perfumes de Lujo</p>
   </footer>
 
-  <script>
-    const carritoItemsDiv = document.getElementById("carrito-items");
-    const carritoTotal = document.getElementById("carrito-total");
-    const formPago = document.getElementById("form-pago");
-
-    let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-
-    // Mostrar productos en el carrito
-    function mostrarCarrito() {
-      carritoItemsDiv.innerHTML = "";
-      let total = 0;
-
-      carrito.forEach((p, index) => {
-        const item = document.createElement("div");
-        item.className = "carrito-item";
-        item.innerHTML = `
-          <span>${index + 1}. ${p.nombre} - S/ ${p.precio}</span>
-          <button onclick="eliminarDelCarrito(${index})">Eliminar</button>
-        `;
-        carritoItemsDiv.appendChild(item);
-        total += Number(p.precio);
-      });
-
-      carritoTotal.textContent = `Total: S/ ${total}`;
-      document.getElementById("cart-count").textContent = carrito.length;
-    }
-
-    mostrarCarrito();
-
-    // Eliminar producto
-    function eliminarDelCarrito(index) {
-      carrito.splice(index, 1);
-      localStorage.setItem("carrito", JSON.stringify(carrito));
-      mostrarCarrito();
-    }
-
-    // Simular pago (guardar datos en localStorage)
-    formPago.addEventListener("submit", (e) => {
-      e.preventDefault();
-
-      const datos = {
-        nombre: document.getElementById("nombre").value,
-        correo: document.getElementById("correo").value,
-        telefono: document.getElementById("telefono").value,
-        direccion: document.getElementById("direccion").value,
-        productos: carrito
-      };
-
-      // Guardar pedido para admin
-      let pedidos = JSON.parse(localStorage.getItem("pedidos")) || [];
-      pedidos.push(datos);
-      localStorage.setItem("pedidos", JSON.stringify(pedidos));
-
-      // Limpiar carrito
-      carrito = [];
-      localStorage.setItem("carrito", JSON.stringify(carrito));
-      mostrarCarrito();
-
-      alert("✅ Pedido enviado (prueba)");
-      formPago.reset();
-    });
-  </script>
-
+  <script src="carrito.js"></script>
 </body>
 </html>
