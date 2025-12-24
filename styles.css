@@ -13,7 +13,7 @@ body {
 }
 
 /* ================= HEADER ================= */
-.header {
+header {
   max-width: 1200px;
   margin: auto;
   display: flex;
@@ -21,6 +21,9 @@ body {
   align-items: center;
   padding: 22px 20px;
   border-bottom: 1px solid #eee;
+  background: #fff;
+  z-index: 1000;
+  flex-wrap: wrap; /* asegura que no se rompa en móvil */
 }
 
 .logo {
@@ -28,24 +31,29 @@ body {
   letter-spacing: 4px;
 }
 
-.nav {
+.nav-right {
   display: flex;
   gap: 22px;
   align-items: center;
+  flex-wrap: wrap; /* evita que baje debajo del logo */
 }
 
-.nav a {
+.nav-right a {
   text-decoration: none;
   color: #111;
   font-size: 15px;
 }
 
-.nav a.active {
+.nav-right a.active {
   border-bottom: 1px solid #111;
 }
 
-.cart-icon {
-  font-size: 18px;
+/* Quitar color morado y subrayado automático */
+.nav-right a:visited,
+.nav-right a:hover,
+.nav-right a:active {
+  color: #111;
+  text-decoration: none;
 }
 
 /* ================= HERO / INICIO ================= */
