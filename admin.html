@@ -4,72 +4,48 @@
   <meta charset="UTF-8">
   <title>Admin – HENRIS</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Tu CSS base -->
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-<header>
-  <div class="logo">HENRIS ADMIN</div>
-</header>
+  <!-- HEADER -->
+  <header>
+    <div class="logo">HENRIS ADMIN</div>
+  </header>
 
-<section class="nosotros" style="max-width:600px">
+  <!-- FORMULARIO ADMIN -->
+  <section class="nosotros" style="max-width:500px;">
+    <h1>Subir perfume a stock</h1>
 
-  <h1>Subir perfume</h1>
+    <form id="form-stock">
 
-  <input id="nombre" placeholder="Nombre del perfume"><br><br>
-  <input id="precio" type="number" placeholder="Precio"><br><br>
-  <input id="imagen" placeholder="URL de la imagen"><br><br>
-  <input id="stock" type="number" placeholder="Stock disponible"><br><br>
+      <input type="text" id="nombre" placeholder="Nombre del perfume" required
+        style="width:100%; padding:12px; margin:10px 0;">
 
-  <button onclick="subirPerfume()">Subir perfume</button>
+      <input type="number" id="precio" placeholder="Precio" required
+        style="width:100%; padding:12px; margin:10px 0;">
 
-</section>
+      <input type="number" id="stock" placeholder="Stock disponible" required
+        style="width:100%; padding:12px; margin:10px 0;">
 
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
-  import { getFirestore, collection, addDoc } from 
-    "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
+      <input type="text" id="imagen" placeholder="URL de la imagen" required
+        style="width:100%; padding:12px; margin:10px 0;">
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyCmFlJ158GJOlRaF1kdmdGirTXl_SRhO_4",
-    authDomain: "henris-40e93.firebaseapp.com",
-    projectId: "henris-40e93",
-    storageBucket: "henris-40e93.firebasestorage.app",
-    messagingSenderId: "18141344120",
-    appId: "1:18141344120:web:a4bd31020ed4298a9c188d"
-  };
+      <button type="submit" class="btn-primary" style="width:100%; margin-top:15px;">
+        Subir perfume
+      </button>
 
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
+    </form>
 
-  window.subirPerfume = async () => {
-    const nombre = document.getElementById("nombre").value;
-    const precio = Number(document.getElementById("precio").value);
-    const imagen = document.getElementById("imagen").value;
-    const stock = Number(document.getElementById("stock").value);
+    <!-- MENSAJE -->
+    <p id="mensaje" style="margin-top:15px; font-weight:600;"></p>
+  </section>
 
-    if (!nombre || !precio || !imagen || !stock) {
-      alert("Completa todos los campos");
-      return;
-    }
-
-    await addDoc(collection(db, "perfumes"), {
-      nombre,
-      precio,
-      imagen,
-      stock,
-      tipo: "stock"
-    });
-
-    alert("Perfume subido correctamente");
-
-    document.getElementById("nombre").value = "";
-    document.getElementById("precio").value = "";
-    document.getElementById("imagen").value = "";
-    document.getElementById("stock").value = "";
-  };
-</script>
+  <!-- FIREBASE + ADMIN -->
+  <script type="module" src="admin.js"></script>
 
 </body>
 </html>
