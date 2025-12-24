@@ -355,3 +355,22 @@ header {
     object-fit: contain;
   }
 }
+/* ===== STOCK: 2 PRODUCTOS POR FILA EN CELULAR ===== */
+@media (max-width: 600px) {
+  .productos-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .producto-card img {
+    height: 160px;
+  }
+
+  .producto-card h3 {
+    font-size: 14px;
+  }
+
+  .precio {
+    font-size: 15px;
+  }
+}
