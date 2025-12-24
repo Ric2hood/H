@@ -347,3 +347,11 @@ header {
     justify-content: flex-end;
   }
 }
+/* ===== FIX IMAGEN NOSOTROS EN MÓVIL ===== */
+@media (max-width: 767px) {
+  .nosotros-imagen img {
+    max-width: 260px;
+    max-height: 260px;
+    object-fit: contain;
+  }
+}
