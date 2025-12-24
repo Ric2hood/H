@@ -1,30 +1,91 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Admin · HENRIS</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
-</head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HENRIS | Admin</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+/* Estilos específicos para Admin */
+.admin-container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
 
+.admin-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.admin-form {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.admin-form input, .admin-form select {
+  padding: 10px;
+  font-size: 14px;
+}
+
+.admin-form button {
+  padding: 12px;
+  border-radius: 30px;
+  border: 1px solid #111;
+  background: none;
+  cursor: pointer;
+}
+
+.perfume-list {
+  display: grid;
+  gap: 16px;
+}
+
+.perfume-card {
+  border: 1px solid #eee;
+  padding: 12px;
+  border-radius: 12px;
+  display: grid;
+  grid-template-columns: 80px 1fr 120px;
+  align-items: center;
+  gap: 12px;
+}
+
+.perfume-card img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.perfume-card button {
+  padding: 6px;
+  font-size: 12px;
+  cursor: pointer;
+}
+</style>
+</head>
 <body>
 
-<header>
-  <div class="logo">HENRIS · Admin</div>
-</header>
+<div class="admin-container">
+  <h1>Panel de Administración</h1>
 
-<section class="nosotros">
-  <h1>Agregar perfume</h1>
+  <!-- Formulario para agregar perfume -->
+  <form class="admin-form" id="perfumeForm">
+    <input type="text" id="nombre" placeholder="Nombre del perfume" required>
+    <input type="number" id="precio" placeholder="Precio (S/)" required>
+    <input type="number" id="stock" placeholder="Stock" required>
+    <input type="url" id="imagen" placeholder="URL de la imagen" required>
+    <select id="tipo">
+      <option value="stock">Stock</option>
+      <option value="pedido">Pedido</option>
+    </select>
+    <button type="submit">Agregar perfume</button>
+  </form>
 
-  <input id="nombre" placeholder="Nombre del perfume"><br><br>
-  <input id="precio" type="number" placeholder="Precio S/"><br><br>
-  <input id="stock" type="number" placeholder="Stock"><br><br>
-  <input id="imagen" placeholder="URL de imagen"><br><br>
-
-  <button onclick="agregarPerfume()">Agregar</button>
-
-  <p id="mensaje"></p>
-</section>
+  <!-- Lista de perfumes -->
+  <div class="perfume-list" id="perfumeList"></div>
+</div>
 
 <script src="admin.js"></script>
 </body>
