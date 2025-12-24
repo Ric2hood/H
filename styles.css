@@ -1,52 +1,60 @@
-/* ================= RESET ================= */
+
+/* ===== RESET ===== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Segoe UI", Arial, sans-serif;
 }
 
 body {
-  background: #0f0f0f;
-  color: #f2f2f2;
-  line-height: 1.6;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
+  color: #111;
 }
 
-/* ================= HEADER ================= */
-header {
-  width: 100%;
-  padding: 20px 40px;
+/* ===== HEADER ===== */
+header,
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #0b0b0b;
-  border-bottom: 1px solid #222;
+  padding: 18px 40px;
+  border-bottom: 1px solid #eaeaea;
 }
 
 .logo {
-  font-size: 26px;
+  font-size: 22px;
   font-weight: bold;
-  letter-spacing: 3px;
+  letter-spacing: 2px;
 }
 
 .nav-right a {
-  color: #f2f2f2;
+  margin-left: 20px;
   text-decoration: none;
-  margin-left: 25px;
-  font-size: 14px;
-  transition: opacity 0.3s;
+  color: #111;
+  font-size: 15px;
 }
 
 .nav-right a:hover {
   opacity: 0.7;
 }
 
-/* ================= HERO (INDEX / NOSOTROS) ================= */
+.cart-icon,
+.cart {
+  font-size: 18px;
+}
+
+/* ===== HERO (INDEX + NOSOTROS) ===== */
 .hero {
-  max-width: 1200px;
-  margin: auto;
-  padding: 100px 20px;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 80px 40px;
+  gap: 40px;
+}
+
+.hero-text {
+  max-width: 500px;
 }
 
 .hero h1 {
@@ -55,130 +63,153 @@ header {
 }
 
 .hero p {
-  max-width: 700px;
-  margin: auto;
   font-size: 16px;
-  opacity: 0.9;
+  line-height: 1.6;
 }
 
-/* ================= HERO INDEX ================= */
+/* ===== BOTONES ===== */
 .hero-buttons {
-  margin-top: 40px;
-}
-
-.btn-primary,
-.btn-secondary {
-  display: inline-block;
-  padding: 14px 28px;
-  margin: 10px;
-  border-radius: 30px;
-  text-decoration: none;
-  font-size: 14px;
-  transition: all 0.3s;
+  margin-top: 30px;
 }
 
 .btn-primary {
-  background: #ffffff;
-  color: #000;
-}
-
-.btn-primary:hover {
-  background: #e0e0e0;
+  background: #111;
+  color: #fff;
+  padding: 12px 24px;
+  text-decoration: none;
+  margin-right: 15px;
+  border: none;
+  cursor: pointer;
 }
 
 .btn-secondary {
-  border: 1px solid #fff;
-  color: #fff;
+  border: 1px solid #111;
+  color: #111;
+  padding: 12px 24px;
+  text-decoration: none;
 }
 
+.btn-primary:hover,
 .btn-secondary:hover {
-  background: #fff;
-  color: #000;
+  opacity: 0.8;
 }
 
-/* ================= HERO IMAGE INDEX ================= */
+/* ===== HERO IMAGE ===== */
 .hero-image img {
-  width: 100%;
-  max-width: 420px;
-  margin-top: 40px;
+  width: 320px;
+  max-width: 100%;
 }
 
-/* ================= NOSOTROS ================= */
-.nosotros-layout {
-  max-width: 1200px;
-  margin: auto;
-  padding: 100px 20px;
+/* ===== SECTION TITLE ===== */
+.section-title {
+  text-align: center;
+  padding: 60px 20px 30px;
+}
+
+.section-title h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.section-title p {
+  font-size: 15px;
+  color: #555;
+}
+
+/* ===== GRID PRODUCTOS ===== */
+.productos-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 60px;
-  align-items: center;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 25px;
+  padding: 40px;
+}
+
+.producto-card {
+  border: 1px solid #eee;
+  padding: 20px;
   text-align: center;
 }
 
-.nosotros-texto h1 {
-  font-size: 40px;
-  margin-bottom: 25px;
-}
-
-.nosotros-texto p {
-  font-size: 16px;
-  opacity: 0.9;
-}
-
-.nosotros-imagen img {
+.producto-card img {
   width: 100%;
-  max-width: 420px;
-  margin: auto;
-  display: block;
+  height: 200px;
+  object-fit: cover;
 }
 
-/* Desktop Nosotros */
-@media (min-width: 768px) {
-  .nosotros-layout {
-    grid-template-columns: 1fr 1fr;
-    text-align: left;
-  }
+.producto-card h3 {
+  margin: 15px 0 5px;
 }
 
-/* ================= FOOTER ================= */
-.footer {
-  padding: 40px 20px;
+.precio {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.producto-card button {
+  padding: 10px;
+  border: none;
+  background: #111;
+  color: #fff;
+  cursor: pointer;
+}
+
+.producto-card button:disabled {
+  background: #aaa;
+  cursor: not-allowed;
+}
+
+/* ===== NOSOTROS (FIX IMPORTANTE) ===== */
+.introduccion {
+  padding: 40px;
   text-align: center;
-  border-top: 1px solid #222;
-  margin-top: 80px;
+  line-height: 1.6;
 }
 
-.footer p {
-  margin-bottom: 15px;
-  font-size: 14px;
+/* CONTENEDOR IMAGEN PERFUME */
+.imagen-perfume {
+  display: flex;
+  justify-content: center;
+  padding: 40px;
+}
+
+/* IMAGEN */
+.imagen-perfume img {
+  width: 280px;
+  max-width: 100%;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  text-align: center;
+  padding: 30px;
+  border-top: 1px solid #eaeaea;
+  margin-top: 60px;
 }
 
 .redes a {
-  color: #fff;
   text-decoration: none;
-  font-size: 14px;
+  color: #111;
 }
 
-.redes a:hover {
-  opacity: 0.7;
-}
-
-/* ================= RESPONSIVE GENERAL ================= */
+/* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
-  header {
+
+  .hero {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero-image {
+    margin-top: 30px;
+  }
+
+  header,
+  .header {
     flex-direction: column;
     gap: 15px;
   }
 
   .nav-right a {
-    margin-left: 15px;
-  }
-
-  .hero h1 {
-    font-size: 32px;
-  }
-
-  .nosotros-texto h1 {
-    font-size: 32px;
+    margin: 0 10px;
   }
 }
