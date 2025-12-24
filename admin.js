@@ -2,15 +2,16 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/fireba
 import { getFirestore, collection, addDoc } from 
   "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
 
-// 🔐 TU MISMA CONFIG (la misma que stock.html)
+console.log("✅ admin.js cargado");
+
+// Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyCmFlJ158GJOlRaF1kdmdGirTXl_SRhO_4",
   authDomain: "henris-40e93.firebaseapp.com",
   projectId: "henris-40e93",
   storageBucket: "henris-40e93.firebasestorage.app",
   messagingSenderId: "18141344120",
-  appId: "1:18141344120:web:a4bd31020ed4298a9c188d",
-  measurementId: "G-RYB6BVCMBS"
+  appId: "1:18141344120:web:a4bd31020ed4298a9c188d"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -21,19 +22,15 @@ const mensaje = document.getElementById("mensaje");
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
-
-  const nombre = document.getElementById("nombre").value.trim();
-  const precio = Number(document.getElementById("precio").value);
-  const stock = Number(document.getElementById("stock").value);
-  const imagen = document.getElementById("imagen").value.trim();
+  console.log("🟡 Submit detectado");
 
   try {
     await addDoc(collection(db, "perfumes"), {
-      nombre,
-      precio,
-      stock,
-      imagen,
-      tipo: "stock",   // 🔥 CLAVE
+      nombre: document.getElementById("nombre").value,
+      precio: Number(document.getElementById("precio").value),
+      stock: Number(document.getElementById("stock").value),
+      imagen: document.getElementById("imagen").value,
+      tipo: "stock",
       fecha: new Date()
     });
 
@@ -41,9 +38,11 @@ form.addEventListener("submit", async (e) => {
     mensaje.style.color = "green";
     form.reset();
 
+    console.log("🟢 Subido a Firebase");
+
   } catch (error) {
-    mensaje.textContent = "❌ Error al subir el perfume";
+    mensaje.textContent = "❌ Error al subir";
     mensaje.style.color = "red";
-    console.error(error);
+    console.error("🔥 ERROR:", error);
   }
 });
