@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin – HENRIS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<header>
+  <div class="logo">HENRIS ADMIN</div>
+</header>
+
+<section class="nosotros" style="max-width:600px">
+
+  <h1>Subir perfume</h1>
+
+  <input id="nombre" placeholder="Nombre del perfume"><br><br>
+  <input id="precio" type="number" placeholder="Precio"><br><br>
+  <input id="imagen" placeholder="URL de la imagen"><br><br>
+  <input id="stock" type="number" placeholder="Stock disponible"><br><br>
+
+  <button onclick="subirPerfume()">Subir perfume</button>
+
+</section>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
+  import { getFirestore, collection, addDoc } from 
+    "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCmFlJ158GJOlRaF1kdmdGirTXl_SRhO_4",
+    authDomain: "henris-40e93.firebaseapp.com",
+    projectId: "henris-40e93",
+    storageBucket: "henris-40e93.firebasestorage.app",
+    messagingSenderId: "18141344120",
+    appId: "1:18141344120:web:a4bd31020ed4298a9c188d"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  window.subirPerfume = async () => {
+    const nombre = document.getElementById("nombre").value;
+    const precio = Number(document.getElementById("precio").value);
+    const imagen = document.getElementById("imagen").value;
+    const stock = Number(document.getElementById("stock").value);
+
+    if (!nombre || !precio || !imagen || !stock) {
+      alert("Completa todos los campos");
+      return;
+    }
+
+    await addDoc(collection(db, "perfumes"), {
+      nombre,
+      precio,
+      imagen,
+      stock,
+      tipo: "stock"
+    });
+
+    alert("Perfume subido correctamente");
+
+    document.getElementById("nombre").value = "";
+    document.getElementById("precio").value = "";
+    document.getElementById("imagen").value = "";
+    document.getElementById("stock").value = "";
+  };
+</script>
+
+</body>
+</html>
