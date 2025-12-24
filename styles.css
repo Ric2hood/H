@@ -1,215 +1,293 @@
-
-/* ===== RESET ===== */
+/* ================= RESET ================= */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Georgia', serif;
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
   background: #ffffff;
   color: #111;
+  line-height: 1.5;
 }
 
-/* ===== HEADER ===== */
-header,
-.header {
+/* ================= HEADER ================= */
+header {
+  max-width: 1200px;
+  margin: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 18px 40px;
-  border-bottom: 1px solid #eaeaea;
+  padding: 22px 20px;
+  border-bottom: 1px solid #eee;
+  background: #fff;
+  z-index: 1000;
+  flex-wrap: wrap; /* asegura que no se rompa en móvil */
 }
 
 .logo {
-  font-size: 22px;
-  font-weight: bold;
-  letter-spacing: 2px;
+  font-size: 26px;
+  letter-spacing: 4px;
+}
+
+.nav-right {
+  display: flex;
+  gap: 22px;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .nav-right a {
-  margin-left: 20px;
-  text-decoration: none;
-  color: #111;
+  text-decoration: none; /* quita subrayado */
+  color: #111;           /* siempre negro */
   font-size: 15px;
 }
 
-.nav-right a:hover {
-  opacity: 0.7;
+.nav-right a:hover,
+.nav-right a:visited,
+.nav-right a:active {
+  text-decoration: none;
+  color: #111;
 }
 
-.cart-icon,
-.cart {
-  font-size: 18px;
-}
-
-/* ===== HERO (INDEX + NOSOTROS) ===== */
+/* ================= HERO / INICIO ================= */
 .hero {
-  display: flex;
+  max-width: 1200px;
+  margin: auto;
+  padding: 100px 20px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 60px;
   align-items: center;
-  justify-content: space-between;
-  padding: 80px 40px;
-  gap: 40px;
-}
-
-.hero-text {
-  max-width: 500px;
+  text-align: center;
 }
 
 .hero h1 {
-  font-size: 42px;
-  margin-bottom: 20px;
+  font-size: 36px;
 }
 
 .hero p {
-  font-size: 16px;
-  line-height: 1.6;
+  font-size: 17px;
+  color: #666;
+  margin-top: 12px;
 }
 
-/* ===== BOTONES ===== */
 .hero-buttons {
   margin-top: 30px;
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.btn-primary,
+.btn-secondary {
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-size: 14px;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .btn-primary {
   background: #111;
   color: #fff;
-  padding: 12px 24px;
-  text-decoration: none;
-  margin-right: 15px;
-  border: none;
-  cursor: pointer;
 }
 
 .btn-secondary {
   border: 1px solid #111;
   color: #111;
-  padding: 12px 24px;
-  text-decoration: none;
 }
 
-.btn-primary:hover,
-.btn-secondary:hover {
-  opacity: 0.8;
-}
-
-/* ===== HERO IMAGE ===== */
 .hero-image img {
-  width: 320px;
-  max-width: 100%;
+  width: 100%;
+  max-width: 320px;
+  margin: auto;
 }
 
-/* ===== SECTION TITLE ===== */
+/* ================= SECCIÓN TÍTULO ================= */
 .section-title {
-  text-align: center;
+  max-width: 1200px;
+  margin: auto;
   padding: 60px 20px 30px;
+  text-align: center;
 }
 
 .section-title h1 {
-  font-size: 36px;
-  margin-bottom: 10px;
+  font-size: 32px;
 }
 
 .section-title p {
-  font-size: 15px;
-  color: #555;
+  font-size: 16px;
+  color: #666;
+  margin-top: 8px;
 }
 
-/* ===== GRID PRODUCTOS ===== */
+/* ================= NOSOTROS ================= */
+.nosotros {
+  max-width: 1000px;
+  margin: auto;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.nosotros p {
+  font-size: 16px;
+  color: #444;
+  max-width: 700px;
+  margin: 20px auto;
+}
+
+.nosotros img {
+  width: 100%;
+  max-width: 420px;
+  margin: 40px auto;
+  display: block;
+  border-radius: 20px;
+}
+
+.redes {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.redes a {
+  font-size: 22px;
+  color: #111;
+  text-decoration: none;
+}
+
+/* ================= GRID PRODUCTOS ================= */
 .productos-grid {
+  max-width: 1200px;
+  margin: auto;
+  padding: 40px 20px 80px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 25px;
-  padding: 40px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
 }
 
+/* ================= CARD PRODUCTO ================= */
 .producto-card {
+  background: #fff;
   border: 1px solid #eee;
-  padding: 20px;
+  border-radius: 18px;
+  padding: 22px;
   text-align: center;
 }
 
 .producto-card img {
   width: 100%;
   height: 200px;
-  object-fit: cover;
+  object-fit: contain;
+  margin-bottom: 18px;
 }
 
 .producto-card h3 {
-  margin: 15px 0 5px;
+  font-size: 15px;
+  margin-bottom: 8px;
 }
 
 .precio {
+  font-size: 16px;
   font-weight: bold;
-  margin-bottom: 10px;
 }
 
+.stock {
+  font-size: 13px;
+  color: #666;
+  margin: 8px 0 14px;
+}
+
+/* ================= BOTONES ================= */
 .producto-card button {
-  padding: 10px;
-  border: none;
-  background: #111;
-  color: #fff;
+  width: 100%;
+  padding: 12px;
+  border-radius: 30px;
+  border: 1px solid #111;
+  background: none;
+  font-size: 14px;
   cursor: pointer;
 }
 
 .producto-card button:disabled {
-  background: #aaa;
-  cursor: not-allowed;
+  border-color: #ccc;
+  color: #aaa;
 }
 
-/* ===== NOSOTROS (FIX IMPORTANTE) ===== */
-.introduccion {
-  padding: 40px;
-  text-align: center;
-  line-height: 1.6;
+/* ================= CARRITO ================= */
+.carrito {
+  max-width: 900px;
+  margin: auto;
+  padding: 60px 20px;
 }
 
-/* CONTENEDOR IMAGEN PERFUME */
-.imagen-perfume {
+.carrito-item {
   display: flex;
-  justify-content: center;
-  padding: 40px;
+  align-items: center;
+  gap: 20px;
+  border-bottom: 1px solid #eee;
+  padding: 20px 0;
 }
 
-/* IMAGEN */
-.imagen-perfume img {
-  width: 280px;
-  max-width: 100%;
+.carrito-item img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
 }
 
-/* ===== FOOTER ===== */
+.carrito-item h4 {
+  font-size: 15px;
+}
+
+.carrito-total {
+  text-align: right;
+  font-size: 18px;
+  margin-top: 30px;
+}
+
+.carrito button {
+  margin-top: 20px;
+  float: right;
+}
+
+/* ================= FOOTER ================= */
 .footer {
+  border-top: 1px solid #eee;
   text-align: center;
-  padding: 30px;
-  border-top: 1px solid #eaeaea;
-  margin-top: 60px;
+  padding: 40px 20px;
+  font-size: 14px;
+  color: #777;
 }
 
-.redes a {
-  text-decoration: none;
-  color: #111;
-}
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
-
+/* ================= RESPONSIVE ================= */
+@media (min-width: 768px) {
   .hero {
-    flex-direction: column;
-    text-align: center;
+    grid-template-columns: 1fr 1fr;
+    text-align: left;
   }
 
-  .hero-image {
-    margin-top: 30px;
+  .hero-buttons {
+    justify-content: flex-start;
   }
 
-  header,
-  .header {
-    flex-direction: column;
-    gap: 15px;
+  .nosotros {
+    text-align: left;
   }
 
-  .nav-right a {
-    margin: 0 10px;
+  .nosotros p {
+    margin-left: 0;
+  }
+}
+
+@media (min-width: 1200px) {
+  .hero h1 {
+    font-size: 42px;
+  }
+
+  .section-title h1 {
+    font-size: 36px;
   }
 }
