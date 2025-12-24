@@ -1,21 +1,29 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pedidos - HENRIS</title>
-<link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pedidos - HENRIS</title>
+
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Iconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
 <!-- ===== HEADER ===== -->
-<header>
+<header class="header">
   <div class="logo">HENRIS</div>
+
   <nav class="nav-right">
     <a href="index.html">Inicio</a>
     <a href="nosotros.html">Nosotros</a>
     <a href="stock.html">Stock</a>
-    <a href="carrito.html" class="cart">🛒 <span id="cart-count">0</span></a>
+    <a href="carrito.html" class="cart-icon">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <span id="cart-count">0</span>
+    </a>
   </nav>
 </header>
 
@@ -27,66 +35,77 @@
   </div>
 
   <div class="productos-grid">
+
     <div class="producto-card">
       <img src="https://images.unsplash.com/photo-1610465299993-3c6a43f77f3d" alt="Bleu de Chanel">
       <h3>Bleu de Chanel</h3>
       <p class="precio">S/ 650</p>
       <button onclick="addToCart('Bleu de Chanel',650)">Agregar</button>
     </div>
+
     <div class="producto-card">
       <img src="https://images.unsplash.com/photo-1610465299615-df46e70f2d56" alt="YSL Y">
       <h3>YSL Y</h3>
       <p class="precio">S/ 630</p>
       <button onclick="addToCart('YSL Y',630)">Agregar</button>
     </div>
+
     <div class="producto-card">
       <img src="https://images.unsplash.com/photo-1585386959984-a41552231693" alt="Armani Code">
       <h3>Armani Code</h3>
       <p class="precio">S/ 640</p>
       <button onclick="addToCart('Armani Code',640)">Agregar</button>
     </div>
+
     <div class="producto-card">
       <img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539" alt="Jean Paul Gaultier">
       <h3>Jean Paul Gaultier</h3>
       <p class="precio">S/ 670</p>
       <button onclick="addToCart('JPG',670)">Agregar</button>
     </div>
+
     <div class="producto-card">
       <img src="https://images.unsplash.com/photo-1599450004021-7b05e7c5e2a4" alt="Dior Sauvage">
       <h3>Dior Sauvage</h3>
       <p class="precio">S/ 680</p>
       <button onclick="addToCart('Dior Sauvage',680)">Agregar</button>
     </div>
+
     <div class="producto-card">
       <img src="https://images.unsplash.com/photo-1600185360477-362eae6e8fc1" alt="Tom Ford Black Orchid">
       <h3>Tom Ford Black Orchid</h3>
       <p class="precio">S/ 750</p>
       <button onclick="addToCart('Tom Ford Black Orchid',750)">Agregar</button>
     </div>
+
     <div class="producto-card">
       <img src="https://images.unsplash.com/photo-1617196037116-1c9e3f11e0c2" alt="Chanel No.5">
       <h3>Chanel No.5</h3>
       <p class="precio">S/ 700</p>
       <button onclick="addToCart('Chanel No.5',700)">Agregar</button>
     </div>
+
     <div class="producto-card">
       <img src="https://images.unsplash.com/photo-1617196037005-3b1f02a7bfe8" alt="Gucci Guilty">
       <h3>Gucci Guilty</h3>
       <p class="precio">S/ 620</p>
       <button onclick="addToCart('Gucci Guilty',620)">Agregar</button>
     </div>
+
     <div class="producto-card">
       <img src="https://images.unsplash.com/photo-1617196037020-2b5c5f6f7f5b" alt="Paco Rabanne Invictus">
       <h3>Paco Rabanne Invictus</h3>
       <p class="precio">S/ 640</p>
       <button onclick="addToCart('Paco Rabanne Invictus',640)">Agregar</button>
     </div>
+
     <div class="producto-card">
       <img src="https://images.unsplash.com/photo-1617196037042-1a8f5d6a8b5c" alt="Hugo Boss Bottled">
       <h3>Hugo Boss Bottled</h3>
       <p class="precio">S/ 600</p>
       <button onclick="addToCart('Hugo Boss Bottled',600)">Agregar</button>
     </div>
+
   </div>
 </section>
 
