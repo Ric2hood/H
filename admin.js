@@ -1,22 +1,21 @@
-// 🔥 Firebase v9 (MODULAR)
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
+import { getFirestore, collection, addDoc } from 
+  "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
 
-// ⚠️ TU CONFIG DE FIREBASE (NO CAMBIAR)
+// 🔐 TU MISMA CONFIG (la misma que stock.html)
 const firebaseConfig = {
-  apiKey: "TU_API_KEY",
-  authDomain: "TU_AUTH_DOMAIN",
-  projectId: "TU_PROJECT_ID",
-  storageBucket: "TU_STORAGE_BUCKET",
-  messagingSenderId: "TU_MESSAGING_ID",
-  appId: "TU_APP_ID"
+  apiKey: "AIzaSyCmFlJ158GJOlRaF1kdmdGirTXl_SRhO_4",
+  authDomain: "henris-40e93.firebaseapp.com",
+  projectId: "henris-40e93",
+  storageBucket: "henris-40e93.firebasestorage.app",
+  messagingSenderId: "18141344120",
+  appId: "1:18141344120:web:a4bd31020ed4298a9c188d",
+  measurementId: "G-RYB6BVCMBS"
 };
 
-// INIT
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// FORM
 const form = document.getElementById("form-stock");
 const mensaje = document.getElementById("mensaje");
 
@@ -29,11 +28,12 @@ form.addEventListener("submit", async (e) => {
   const imagen = document.getElementById("imagen").value.trim();
 
   try {
-    await addDoc(collection(db, "stock"), {
+    await addDoc(collection(db, "perfumes"), {
       nombre,
       precio,
       stock,
       imagen,
+      tipo: "stock",   // 🔥 CLAVE
       fecha: new Date()
     });
 
@@ -44,6 +44,6 @@ form.addEventListener("submit", async (e) => {
   } catch (error) {
     mensaje.textContent = "❌ Error al subir el perfume";
     mensaje.style.color = "red";
-    console.error("Error:", error);
+    console.error(error);
   }
 });
