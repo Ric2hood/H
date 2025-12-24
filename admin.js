@@ -5,7 +5,7 @@ const productosAdmin = document.getElementById('productosAdmin');
 // Cargar perfumes desde localStorage
 let perfumes = JSON.parse(localStorage.getItem('perfumes')) || [];
 
-// Función para mostrar los perfumes
+// Mostrar perfumes en admin
 function mostrarPerfumes() {
   productosAdmin.innerHTML = '';
   perfumes.forEach((perfume, index) => {
@@ -26,7 +26,7 @@ function mostrarPerfumes() {
   });
 }
 
-// Subir nuevo perfume
+// Agregar nuevo perfume
 form.addEventListener('submit', (e) => {
   e.preventDefault();
 
@@ -41,6 +41,7 @@ form.addEventListener('submit', (e) => {
   const reader = new FileReader();
   reader.onload = () => {
     const imagen = reader.result; // Base64
+
     perfumes.push({ nombre, precio, stock, tipo, imagen });
     localStorage.setItem('perfumes', JSON.stringify(perfumes));
     mostrarPerfumes();
@@ -59,7 +60,7 @@ window.borrarPerfume = (index) => {
   }
 };
 
-// Editar perfume (solo básico: cambiar stock y precio)
+// Editar perfume (precio y stock)
 window.editarPerfume = (index) => {
   const perfume = perfumes[index];
   const nuevoPrecio = prompt('Nuevo precio (S/):', perfume.precio);
