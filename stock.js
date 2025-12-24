@@ -1,9 +1,11 @@
 const contenedor = document.getElementById("productosStock");
 
+// Obtener perfumes desde localStorage (tu lista de perfumes)
 const perfumes = JSON.parse(localStorage.getItem("perfumes")) || [];
 
 contenedor.innerHTML = "";
 
+// Mostrar cada perfume en la página
 perfumes.forEach(p => {
   if (p.stock <= 0) return;
 
@@ -30,7 +32,7 @@ function agregarAlCarrito(nombre) {
   carrito.push(producto);
   localStorage.setItem("carrito", JSON.stringify(carrito));
 
-  // Animación simple de éxito
+  // Animación de éxito al agregar
   const alerta = document.createElement("div");
   alerta.textContent = "Añadido al carrito exitosamente ✅";
   alerta.style.position = "fixed";
