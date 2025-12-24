@@ -39,21 +39,17 @@ header {
 }
 
 .nav-right a {
-  text-decoration: none;
-  color: #111;
+  text-decoration: none; /* quita subrayado */
+  color: #111;           /* siempre negro */
   font-size: 15px;
 }
 
-/* Quitar subrayado y color morado */
-.nav-right a.active {
-  border-bottom: none;
-}
-
-.nav-right a:visited,
+/* asegurar que en cualquier estado no se subraye ni cambie color */
 .nav-right a:hover,
+.nav-right a:visited,
 .nav-right a:active {
-  color: #111;
   text-decoration: none;
+  color: #111;
 }
 
 /* ================= HERO / INICIO ================= */
