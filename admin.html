@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Admin – HENRIS</title>
+  <title>Admin · HENRIS</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -10,26 +10,22 @@
 <body>
 
 <header>
-  <div class="logo">HENRIS</div>
+  <div class="logo">HENRIS · Admin</div>
 </header>
 
-<section class="carrito">
-  <h2>Subir perfume a stock</h2>
+<section class="nosotros">
+  <h1>Agregar perfume</h1>
 
-  <form id="form-stock">
-    <input type="text" id="nombre" placeholder="Nombre del perfume" required>
-    <input type="number" id="precio" placeholder="Precio" required>
-    <input type="number" id="stock" placeholder="Cantidad en stock" required>
-    <input type="text" id="imagen" placeholder="URL de imagen" required>
+  <input id="nombre" placeholder="Nombre del perfume"><br><br>
+  <input id="precio" type="number" placeholder="Precio S/"><br><br>
+  <input id="stock" type="number" placeholder="Stock"><br><br>
+  <input id="imagen" placeholder="URL de imagen"><br><br>
 
-    <button type="submit">Subir perfume</button>
-  </form>
+  <button onclick="agregarPerfume()">Agregar</button>
 
   <p id="mensaje"></p>
 </section>
 
-<!-- 🔥 MUY IMPORTANTE -->
-<script type="module" src="admin.js"></script>
-
+<script src="admin.js"></script>
 </body>
 </html>
