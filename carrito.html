@@ -1,36 +1,106 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Carrito - HENRIS</title>
-<link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrito – HENRIS</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<header>
-  <div class="logo">HENRIS</div>
-</header>
+  <!-- HEADER -->
+  <header>
+    <div class="logo">HENRIS</div>
+    <nav class="nav-right">
+      <a href="index.html">Inicio</a>
+      <a href="stock.html">Stock</a>
+      <a href="pedidos.html">Pedidos</a>
+      <a href="carrito.html" class="cart">🛒 <span id="cart-count">0</span></a>
+    </nav>
+  </header>
 
-<section class="grid" id="items"></section>
+  <!-- SECCIÓN CARRITO -->
+  <section class="carrito">
+    <h1>Tu Carrito</h1>
+    <div id="carrito-items"></div>
+    <p class="carrito-total" id="carrito-total">Total: S/ 0</p>
 
-<section class="hero">
-  <h2 id="total"></h2>
-  <button>Pagar carrito</button>
-</section>
+    <h2>Datos para el envío</h2>
+    <form id="form-pago">
+      <input type="text" id="nombre" placeholder="Nombre completo" required>
+      <input type="email" id="correo" placeholder="Correo electrónico" required>
+      <input type="text" id="telefono" placeholder="Teléfono" required>
+      <textarea id="direccion" placeholder="Dirección" required></textarea>
+      <button type="submit">Pagar carrito (prueba)</button>
+    </form>
+  </section>
 
-<script>
-const cart = JSON.parse(localStorage.getItem('cart')) || [];
-let total = 0;
-const items = document.getElementById("items");
+  <footer class="footer">
+    <p>© 2025 HENRIS · Perfumes de Lujo</p>
+  </footer>
 
-cart.forEach(p => {
-  total += p.price;
-  items.innerHTML += `<div class="card"><h3>${p.name}</h3><p>S/ ${p.price}</p></div>`;
-});
+  <script>
+    const carritoItemsDiv = document.getElementById("carrito-items");
+    const carritoTotal = document.getElementById("carrito-total");
+    const formPago = document.getElementById("form-pago");
 
-document.getElementById("total").textContent = "Total: S/ " + total;
-</script>
+    let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+
+    // Mostrar productos en el carrito
+    function mostrarCarrito() {
+      carritoItemsDiv.innerHTML = "";
+      let total = 0;
+
+      carrito.forEach((p, index) => {
+        const item = document.createElement("div");
+        item.className = "carrito-item";
+        item.innerHTML = `
+          <span>${index + 1}. ${p.nombre} - S/ ${p.precio}</span>
+          <button onclick="eliminarDelCarrito(${index})">Eliminar</button>
+        `;
+        carritoItemsDiv.appendChild(item);
+        total += Number(p.precio);
+      });
+
+      carritoTotal.textContent = `Total: S/ ${total}`;
+      document.getElementById("cart-count").textContent = carrito.length;
+    }
+
+    mostrarCarrito();
+
+    // Eliminar producto
+    function eliminarDelCarrito(index) {
+      carrito.splice(index, 1);
+      localStorage.setItem("carrito", JSON.stringify(carrito));
+      mostrarCarrito();
+    }
+
+    // Simular pago (guardar datos en localStorage)
+    formPago.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const datos = {
+        nombre: document.getElementById("nombre").value,
+        correo: document.getElementById("correo").value,
+        telefono: document.getElementById("telefono").value,
+        direccion: document.getElementById("direccion").value,
+        productos: carrito
+      };
+
+      // Guardar pedido para admin
+      let pedidos = JSON.parse(localStorage.getItem("pedidos")) || [];
+      pedidos.push(datos);
+      localStorage.setItem("pedidos", JSON.stringify(pedidos));
+
+      // Limpiar carrito
+      carrito = [];
+      localStorage.setItem("carrito", JSON.stringify(carrito));
+      mostrarCarrito();
+
+      alert("✅ Pedido enviado (prueba)");
+      formPago.reset();
+    });
+  </script>
 
 </body>
 </html>
