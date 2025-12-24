@@ -4,48 +4,32 @@
   <meta charset="UTF-8">
   <title>Admin – HENRIS</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Tu CSS base -->
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <div class="logo">HENRIS ADMIN</div>
-  </header>
+<header>
+  <div class="logo">HENRIS</div>
+</header>
 
-  <!-- FORMULARIO ADMIN -->
-  <section class="nosotros" style="max-width:500px;">
-    <h1>Subir perfume a stock</h1>
+<section class="carrito">
+  <h2>Subir perfume a stock</h2>
 
-    <form id="form-stock">
+  <form id="form-stock">
+    <input type="text" id="nombre" placeholder="Nombre del perfume" required>
+    <input type="number" id="precio" placeholder="Precio" required>
+    <input type="number" id="stock" placeholder="Cantidad en stock" required>
+    <input type="text" id="imagen" placeholder="URL de imagen" required>
 
-      <input type="text" id="nombre" placeholder="Nombre del perfume" required
-        style="width:100%; padding:12px; margin:10px 0;">
+    <button type="submit">Subir perfume</button>
+  </form>
 
-      <input type="number" id="precio" placeholder="Precio" required
-        style="width:100%; padding:12px; margin:10px 0;">
+  <p id="mensaje"></p>
+</section>
 
-      <input type="number" id="stock" placeholder="Stock disponible" required
-        style="width:100%; padding:12px; margin:10px 0;">
-
-      <input type="text" id="imagen" placeholder="URL de la imagen" required
-        style="width:100%; padding:12px; margin:10px 0;">
-
-      <button type="submit" class="btn-primary" style="width:100%; margin-top:15px;">
-        Subir perfume
-      </button>
-
-    </form>
-
-    <!-- MENSAJE -->
-    <p id="mensaje" style="margin-top:15px; font-weight:600;"></p>
-  </section>
-
-  <!-- FIREBASE + ADMIN -->
-  <script type="module" src="admin.js"></script>
+<!-- 🔥 MUY IMPORTANTE -->
+<script type="module" src="admin.js"></script>
 
 </body>
 </html>
