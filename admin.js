@@ -1,78 +1,106 @@
-// admin.js
-const form = document.getElementById('formPerfume');
-const productosAdmin = document.getElementById('productosAdmin');
+const formAgregar = document.getElementById("form-agregar");
+const listaPerfumesDiv = document.getElementById("lista-perfumes");
+const listaPedidosDiv = document.getElementById("lista-pedidos");
 
-// Cargar perfumes desde localStorage
-let perfumes = JSON.parse(localStorage.getItem('perfumes')) || [];
+// Perfumes guardados en localStorage
+let perfumes = JSON.parse(localStorage.getItem("perfumes")) || [];
 
-// Mostrar perfumes en admin
+// Pedidos guardados en localStorage
+let pedidos = JSON.parse(localStorage.getItem("pedidos")) || [];
+
+// FUNCIONES PERFUMES
 function mostrarPerfumes() {
-  productosAdmin.innerHTML = '';
-  perfumes.forEach((perfume, index) => {
-    const div = document.createElement('div');
-    div.className = 'producto-card';
+  listaPerfumesDiv.innerHTML = "";
+  if(perfumes.length === 0){
+    listaPerfumesDiv.innerHTML = "<p>No hay perfumes agregados aún.</p>";
+    return;
+  }
+
+  perfumes.forEach((p, index) => {
+    const div = document.createElement("div");
+    div.className = "admin-perfume-card";
+
     div.innerHTML = `
-      <img src="${perfume.imagen}" alt="${perfume.nombre}">
-      <h3>${perfume.nombre}</h3>
-      <p>Precio: S/ ${perfume.precio}</p>
-      <p>Stock: ${perfume.stock}</p>
-      <p>Tipo: ${perfume.tipo}</p>
-      <div class="acciones">
-        <button onclick="editarPerfume(${index})">Editar</button>
-        <button onclick="borrarPerfume(${index})">Borrar</button>
+      <img src="${p.imagen}" alt="${p.nombre}">
+      <div class="info">
+        <h3>${p.nombre}</h3>
+        <p>Precio: S/ ${p.precio}</p>
+        <p>Stock: ${p.stock}</p>
+        <p>Tipo: ${p.tipo}</p>
       </div>
+      <button class="btn-eliminar" onclick="eliminarPerfume(${index})">
+        <i class="fa-solid fa-trash"></i> Eliminar
+      </button>
     `;
-    productosAdmin.appendChild(div);
+
+    listaPerfumesDiv.appendChild(div);
   });
 }
 
-// Agregar nuevo perfume
-form.addEventListener('submit', (e) => {
+function eliminarPerfume(index) {
+  perfumes.splice(index, 1);
+  localStorage.setItem("perfumes", JSON.stringify(perfumes));
+  mostrarPerfumes();
+}
+
+formAgregar.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  const nombre = document.getElementById('nombre').value;
-  const precio = parseFloat(document.getElementById('precio').value);
-  const stock = parseInt(document.getElementById('stock').value);
-  const tipo = document.getElementById('tipo').value;
-  const file = document.getElementById('imagen').files[0];
-
-  if (!file) return alert('Selecciona una imagen');
-
-  const reader = new FileReader();
-  reader.onload = () => {
-    const imagen = reader.result; // Base64
-
-    perfumes.push({ nombre, precio, stock, tipo, imagen });
-    localStorage.setItem('perfumes', JSON.stringify(perfumes));
-    mostrarPerfumes();
-    form.reset();
-    alert('Perfume agregado con éxito');
+  const nuevoPerfume = {
+    nombre: document.getElementById("nombre").value,
+    precio: document.getElementById("precio").value,
+    stock: document.getElementById("stock").value,
+    imagen: document.getElementById("imagen").value,
+    tipo: document.getElementById("tipo").value
   };
-  reader.readAsDataURL(file);
+
+  perfumes.push(nuevoPerfume);
+  localStorage.setItem("perfumes", JSON.stringify(perfumes));
+  mostrarPerfumes();
+  formAgregar.reset();
+  alert("✅ Perfume agregado correctamente");
 });
 
-// Borrar perfume
-window.borrarPerfume = (index) => {
-  if (confirm('¿Deseas borrar este perfume?')) {
-    perfumes.splice(index, 1);
-    localStorage.setItem('perfumes', JSON.stringify(perfumes));
-    mostrarPerfumes();
+// FUNCIONES PEDIDOS
+function mostrarPedidos() {
+  listaPedidosDiv.innerHTML = "";
+
+  if(pedidos.length === 0){
+    listaPedidosDiv.innerHTML = "<p>No hay pedidos aún.</p>";
+    return;
   }
-};
 
-// Editar perfume (precio y stock)
-window.editarPerfume = (index) => {
-  const perfume = perfumes[index];
-  const nuevoPrecio = prompt('Nuevo precio (S/):', perfume.precio);
-  const nuevoStock = prompt('Nuevo stock:', perfume.stock);
+  pedidos.forEach((p, index) => {
+    const div = document.createElement("div");
+    div.className = "pedido-card";
 
-  if (nuevoPrecio !== null) perfume.precio = parseFloat(nuevoPrecio);
-  if (nuevoStock !== null) perfume.stock = parseInt(nuevoStock);
+    let productos = p.productos.map(prod => `<li>${prod.nombre} (S/ ${prod.precio})</li>`).join("");
 
-  perfumes[index] = perfume;
-  localStorage.setItem('perfumes', JSON.stringify(perfumes));
-  mostrarPerfumes();
-};
+    div.innerHTML = `
+      <div class="info">
+        <h3>Pedido #${index+1}</h3>
+        <p><strong>Nombre:</strong> ${p.nombre}</p>
+        <p><strong>Correo:</strong> ${p.correo}</p>
+        <p><strong>Teléfono:</strong> ${p.telefono}</p>
+        <p><strong>Dirección:</strong> ${p.direccion}</p>
+        <p><strong>Productos:</strong></p>
+        <ul>${productos}</ul>
+      </div>
+      <button class="btn-eliminar" onclick="eliminarPedido(${index})">
+        <i class="fa-solid fa-trash"></i> Eliminar
+      </button>
+    `;
 
-// Mostrar al cargar
+    listaPedidosDiv.appendChild(div);
+  });
+}
+
+function eliminarPedido(index) {
+  pedidos.splice(index, 1);
+  localStorage.setItem("pedidos", JSON.stringify(pedidos));
+  mostrarPedidos();
+}
+
+// Mostrar todo al cargar la página
 mostrarPerfumes();
+mostrarPedidos();
