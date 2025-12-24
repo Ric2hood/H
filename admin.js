@@ -2,24 +2,22 @@ const formAgregar = document.getElementById("form-agregar");
 const listaPerfumesDiv = document.getElementById("lista-perfumes");
 const listaPedidosDiv = document.getElementById("lista-pedidos");
 
-// Perfumes guardados en localStorage
+// PERFUMES YA EXISTENTES (no se toca nada)
 let perfumes = JSON.parse(localStorage.getItem("perfumes")) || [];
 
-// Pedidos guardados en localStorage
+// PEDIDOS (nuevo)
 let pedidos = JSON.parse(localStorage.getItem("pedidos")) || [];
 
-// FUNCIONES PERFUMES
+// ================= PERFUMES =================
 function mostrarPerfumes() {
   listaPerfumesDiv.innerHTML = "";
   if(perfumes.length === 0){
     listaPerfumesDiv.innerHTML = "<p>No hay perfumes agregados aún.</p>";
     return;
   }
-
   perfumes.forEach((p, index) => {
     const div = document.createElement("div");
     div.className = "admin-perfume-card";
-
     div.innerHTML = `
       <img src="${p.imagen}" alt="${p.nombre}">
       <div class="info">
@@ -32,20 +30,18 @@ function mostrarPerfumes() {
         <i class="fa-solid fa-trash"></i> Eliminar
       </button>
     `;
-
     listaPerfumesDiv.appendChild(div);
   });
 }
 
 function eliminarPerfume(index) {
-  perfumes.splice(index, 1);
-  localStorage.setItem("perfumes", JSON.stringify(perfumes));
+  perfumes.splice(index,1);
+  localStorage.setItem("perfumes",JSON.stringify(perfumes));
   mostrarPerfumes();
 }
 
-formAgregar.addEventListener("submit", (e) => {
+formAgregar.addEventListener("submit",(e)=>{
   e.preventDefault();
-
   const nuevoPerfume = {
     nombre: document.getElementById("nombre").value,
     precio: document.getElementById("precio").value,
@@ -53,7 +49,6 @@ formAgregar.addEventListener("submit", (e) => {
     imagen: document.getElementById("imagen").value,
     tipo: document.getElementById("tipo").value
   };
-
   perfumes.push(nuevoPerfume);
   localStorage.setItem("perfumes", JSON.stringify(perfumes));
   mostrarPerfumes();
@@ -61,16 +56,15 @@ formAgregar.addEventListener("submit", (e) => {
   alert("✅ Perfume agregado correctamente");
 });
 
-// FUNCIONES PEDIDOS
+// ================= PEDIDOS =================
 function mostrarPedidos() {
   listaPedidosDiv.innerHTML = "";
-
   if(pedidos.length === 0){
     listaPedidosDiv.innerHTML = "<p>No hay pedidos aún.</p>";
     return;
   }
 
-  pedidos.forEach((p, index) => {
+  pedidos.forEach((p,index)=>{
     const div = document.createElement("div");
     div.className = "pedido-card";
 
@@ -90,17 +84,16 @@ function mostrarPedidos() {
         <i class="fa-solid fa-trash"></i> Eliminar
       </button>
     `;
-
     listaPedidosDiv.appendChild(div);
   });
 }
 
-function eliminarPedido(index) {
-  pedidos.splice(index, 1);
+function eliminarPedido(index){
+  pedidos.splice(index,1);
   localStorage.setItem("pedidos", JSON.stringify(pedidos));
   mostrarPedidos();
 }
 
-// Mostrar todo al cargar la página
+// Mostrar al cargar
 mostrarPerfumes();
 mostrarPedidos();
