@@ -1,99 +1,129 @@
-const formAgregar = document.getElementById("form-agregar");
-const listaPerfumesDiv = document.getElementById("lista-perfumes");
-const listaPedidosDiv = document.getElementById("lista-pedidos");
-
-// PERFUMES YA EXISTENTES (no se toca nada)
-let perfumes = JSON.parse(localStorage.getItem("perfumes")) || [];
-
-// PEDIDOS (nuevo)
-let pedidos = JSON.parse(localStorage.getItem("pedidos")) || [];
-
 // ================= PERFUMES =================
+const form = document.getElementById('formPerfume');
+const productosAdmin = document.getElementById('productosAdmin');
+
+// Cargar perfumes desde localStorage
+let perfumes = JSON.parse(localStorage.getItem('perfumes')) || [];
+
+// Mostrar perfumes en admin
 function mostrarPerfumes() {
-  listaPerfumesDiv.innerHTML = "";
-  if(perfumes.length === 0){
-    listaPerfumesDiv.innerHTML = "<p>No hay perfumes agregados aún.</p>";
-    return;
-  }
-  perfumes.forEach((p, index) => {
-    const div = document.createElement("div");
-    div.className = "admin-perfume-card";
+  productosAdmin.innerHTML = '';
+  perfumes.forEach((perfume, index) => {
+    const div = document.createElement('div');
+    div.className = 'producto-card';
     div.innerHTML = `
-      <img src="${p.imagen}" alt="${p.nombre}">
-      <div class="info">
-        <h3>${p.nombre}</h3>
-        <p>Precio: S/ ${p.precio}</p>
-        <p>Stock: ${p.stock}</p>
-        <p>Tipo: ${p.tipo}</p>
+      <img src="${perfume.imagen}" alt="${perfume.nombre}">
+      <h3>${perfume.nombre}</h3>
+      <p>Precio: S/ ${perfume.precio}</p>
+      <p>Stock: ${perfume.stock}</p>
+      <p>Tipo: ${perfume.tipo}</p>
+      <div class="acciones">
+        <button class="editar" onclick="editarPerfume(${index})">Editar</button>
+        <button class="borrar" onclick="borrarPerfume(${index})">Borrar</button>
       </div>
-      <button class="btn-eliminar" onclick="eliminarPerfume(${index})">
-        <i class="fa-solid fa-trash"></i> Eliminar
-      </button>
     `;
-    listaPerfumesDiv.appendChild(div);
+    productosAdmin.appendChild(div);
   });
 }
 
-function eliminarPerfume(index) {
-  perfumes.splice(index,1);
-  localStorage.setItem("perfumes",JSON.stringify(perfumes));
-  mostrarPerfumes();
-}
-
-formAgregar.addEventListener("submit",(e)=>{
+// Agregar nuevo perfume
+form.addEventListener('submit', (e) => {
   e.preventDefault();
-  const nuevoPerfume = {
-    nombre: document.getElementById("nombre").value,
-    precio: document.getElementById("precio").value,
-    stock: document.getElementById("stock").value,
-    imagen: document.getElementById("imagen").value,
-    tipo: document.getElementById("tipo").value
+
+  const nombre = document.getElementById('nombre').value;
+  const precio = parseFloat(document.getElementById('precio').value);
+  const stock = parseInt(document.getElementById('stock').value);
+  const tipo = document.getElementById('tipo').value;
+  const file = document.getElementById('imagen').files[0];
+
+  if (!file) return alert('Selecciona una imagen');
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    const imagen = reader.result; // Base64
+
+    perfumes.push({ nombre, precio, stock, tipo, imagen });
+    localStorage.setItem('perfumes', JSON.stringify(perfumes));
+    mostrarPerfumes();
+    form.reset();
+    alert('Perfume agregado con éxito');
   };
-  perfumes.push(nuevoPerfume);
-  localStorage.setItem("perfumes", JSON.stringify(perfumes));
-  mostrarPerfumes();
-  formAgregar.reset();
-  alert("✅ Perfume agregado correctamente");
+  reader.readAsDataURL(file);
 });
 
-// ================= PEDIDOS =================
-function mostrarPedidos() {
-  listaPedidosDiv.innerHTML = "";
-  if(pedidos.length === 0){
-    listaPedidosDiv.innerHTML = "<p>No hay pedidos aún.</p>";
-    return;
+// Borrar perfume
+window.borrarPerfume = (index) => {
+  if (confirm('¿Deseas borrar este perfume?')) {
+    perfumes.splice(index, 1);
+    localStorage.setItem('perfumes', JSON.stringify(perfumes));
+    mostrarPerfumes();
   }
+};
 
-  pedidos.forEach((p,index)=>{
-    const div = document.createElement("div");
-    div.className = "pedido-card";
+// Editar perfume (precio y stock)
+window.editarPerfume = (index) => {
+  const perfume = perfumes[index];
+  const nuevoPrecio = prompt('Nuevo precio (S/):', perfume.precio);
+  const nuevoStock = prompt('Nuevo stock:', perfume.stock);
 
-    let productos = p.productos.map(prod => `<li>${prod.nombre} (S/ ${prod.precio})</li>`).join("");
+  if (nuevoPrecio !== null) perfume.precio = parseFloat(nuevoPrecio);
+  if (nuevoStock !== null) perfume.stock = parseInt(nuevoStock);
 
-    div.innerHTML = `
-      <div class="info">
-        <h3>Pedido #${index+1}</h3>
-        <p><strong>Nombre:</strong> ${p.nombre}</p>
-        <p><strong>Correo:</strong> ${p.correo}</p>
-        <p><strong>Teléfono:</strong> ${p.telefono}</p>
-        <p><strong>Dirección:</strong> ${p.direccion}</p>
-        <p><strong>Productos:</strong></p>
-        <ul>${productos}</ul>
-      </div>
-      <button class="btn-eliminar" onclick="eliminarPedido(${index})">
-        <i class="fa-solid fa-trash"></i> Eliminar
-      </button>
-    `;
-    listaPedidosDiv.appendChild(div);
-  });
-}
-
-function eliminarPedido(index){
-  pedidos.splice(index,1);
-  localStorage.setItem("pedidos", JSON.stringify(pedidos));
-  mostrarPedidos();
-}
+  perfumes[index] = perfume;
+  localStorage.setItem('perfumes', JSON.stringify(perfumes));
+  mostrarPerfumes();
+};
 
 // Mostrar al cargar
 mostrarPerfumes();
+
+// ================= PEDIDOS =================
+const pedidosAdmin = document.getElementById('pedidosAdmin');
+
+// Cargar pedidos desde localStorage
+let pedidos = JSON.parse(localStorage.getItem('pedidos')) || [];
+
+// Mostrar pedidos
+function mostrarPedidos() {
+  pedidosAdmin.innerHTML = '';
+  pedidos.forEach((pedido, index) => {
+    const div = document.createElement('div');
+    div.className = 'pedido-card';
+    div.innerHTML = `
+      <p><strong>#${index + 1} - Pedido de:</strong> ${pedido.nombreCliente}</p>
+      <p><strong>Teléfono:</strong> ${pedido.telefono}</p>
+      <p><strong>Correo:</strong> ${pedido.correo}</p>
+      <p><strong>Dirección:</strong> ${pedido.direccion}</p>
+      <p><strong>Productos:</strong></p>
+      <ul>
+        ${pedido.productos.map(p => `<li>${p.nombre} x${p.cantidad}</li>`).join('')}
+      </ul>
+      <p><strong>Total:</strong> S/ ${pedido.total}</p>
+      <div class="acciones">
+        <button class="editar" onclick="marcarEntregado(${index})">Entregado</button>
+        <button class="borrar" onclick="borrarPedido(${index})">Borrar</button>
+      </div>
+    `;
+    pedidosAdmin.appendChild(div);
+  });
+}
+
+// Marcar pedido como entregado
+window.marcarEntregado = (index) => {
+  pedidos[index].entregado = true;
+  localStorage.setItem('pedidos', JSON.stringify(pedidos));
+  alert(`Pedido #${index + 1} marcado como entregado`);
+  mostrarPedidos();
+}
+
+// Borrar pedido
+window.borrarPedido = (index) => {
+  if (confirm('¿Deseas borrar este pedido?')) {
+    pedidos.splice(index, 1);
+    localStorage.setItem('pedidos', JSON.stringify(pedidos));
+    mostrarPedidos();
+  }
+}
+
+// Mostrar pedidos al cargar
 mostrarPedidos();
