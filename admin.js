@@ -1,4 +1,3 @@
-
 const form = document.getElementById('formPerfume');
 const productosAdmin = document.getElementById('productosAdmin');
 
@@ -51,6 +50,9 @@ form.addEventListener('submit', (e) => {
     mostrarPerfumes();
     form.reset();
     alert('Perfume agregado correctamente');
+
+    // ===== AGREGADO: mensaje visual =====
+    mostrarMensajeExito();
   };
 
   reader.onerror = () => {
@@ -85,3 +87,64 @@ window.editarPerfume = (index) => {
 
 // Mostrar al cargar
 mostrarPerfumes();
+
+/* =====================================================
+   ======== TODO LO DE ABAJO ES AGREGADO =========
+   ===================================================== */
+
+// Mensaje visual de éxito
+function mostrarMensajeExito() {
+  let mensaje = document.getElementById('mensajeExito');
+
+  if (!mensaje) {
+    mensaje = document.createElement('div');
+    mensaje.id = 'mensajeExito';
+    mensaje.textContent = '✔ Perfume añadido correctamente';
+    mensaje.style.position = 'fixed';
+    mensaje.style.top = '20px';
+    mensaje.style.right = '20px';
+    mensaje.style.background = '#1dd1a1';
+    mensaje.style.color = '#000';
+    mensaje.style.padding = '12px 18px';
+    mensaje.style.borderRadius = '10px';
+    mensaje.style.fontWeight = 'bold';
+    mensaje.style.zIndex = '9999';
+    mensaje.style.boxShadow = '0 0 15px rgba(29,209,161,0.6)';
+    document.body.appendChild(mensaje);
+  }
+
+  mensaje.style.display = 'block';
+
+  setTimeout(() => {
+    mensaje.style.display = 'none';
+  }, 2500);
+}
+
+// ================= PEDIDOS REALIZADOS =================
+const listaPedidos = document.getElementById('listaPedidos');
+
+function mostrarPedidos() {
+  if (!listaPedidos) return;
+
+  const pedidos = JSON.parse(localStorage.getItem('pedidos')) || [];
+  listaPedidos.innerHTML = '';
+
+  if (pedidos.length === 0) {
+    listaPedidos.innerHTML = '<p style="color:#aaa">No hay pedidos aún</p>';
+    return;
+  }
+
+  pedidos.forEach((pedido, i) => {
+    const div = document.createElement('div');
+    div.className = 'pedido-card';
+    div.innerHTML = `
+      <p><strong>Pedido #${i + 1}</strong></p>
+      <p>Cliente: ${pedido.cliente || 'Sin nombre'}</p>
+      <p>Total: S/ ${pedido.total}</p>
+      <p>Fecha: ${pedido.fecha}</p>
+    `;
+    listaPedidos.appendChild(div);
+  });
+}
+
+mostrarPedidos();
