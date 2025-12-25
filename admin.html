@@ -6,34 +6,240 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
   <style>
-    body { background: #fff; color: #111; font-family: 'Georgia', serif; padding: 20px; }
-    h1 { text-align: center; margin-bottom: 20px; }
-    form { max-width: 500px; margin: auto; display: flex; flex-direction: column; gap: 12px; }
-    input, select, button { padding: 10px; font-size: 14px; }
-    .productos-admin { max-width: 1000px; margin: 40px auto; display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: 20px; }
-    .producto-card { border: 1px solid #eee; border-radius: 10px; padding: 12px; text-align: center; }
-    .producto-card img { width: 100%; height: 180px; object-fit: contain; margin-bottom: 10px; border-radius: 8px; }
-    .acciones { display: flex; justify-content: space-between; margin-top: 8px; }
-    .acciones button { flex: 1; margin: 0 4px; padding: 6px; font-size: 12px; cursor: pointer; }
+    body { 
+      background: #fff; 
+      color: #111; 
+      font-family: 'Georgia', serif; 
+      padding: 20px; 
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    h1 { 
+      text-align: center; 
+      margin-bottom: 20px; 
+      color: #333;
+      border-bottom: 2px solid #f0f0f0;
+      padding-bottom: 15px;
+    }
+    
+    .admin-container {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+    
+    .form-section {
+      background: #f9f9f9;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    form { 
+      max-width: 600px; 
+      margin: 0 auto; 
+      display: flex; 
+      flex-direction: column; 
+      gap: 15px; 
+    }
+    
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    label {
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #555;
+    }
+    
+    input, select, button { 
+      padding: 12px; 
+      font-size: 16px; 
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-family: 'Georgia', serif;
+    }
+    
+    input:focus, select:focus {
+      outline: none;
+      border-color: #8a6d3b;
+      box-shadow: 0 0 0 2px rgba(138, 109, 59, 0.2);
+    }
+    
+    button[type="submit"] {
+      background: #8a6d3b;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+      margin-top: 10px;
+    }
+    
+    button[type="submit"]:hover {
+      background: #6b532b;
+    }
+    
+    .products-section h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 25px;
+    }
+    
+    .productos-admin { 
+      max-width: 100%; 
+      margin: 0 auto; 
+      display: grid; 
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
+      gap: 25px; 
+    }
+    
+    .producto-card { 
+      border: 1px solid #eee; 
+      border-radius: 10px; 
+      padding: 15px; 
+      text-align: center; 
+      background: white;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .producto-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .producto-card img { 
+      width: 100%; 
+      height: 200px; 
+      object-fit: contain; 
+      margin-bottom: 15px; 
+      border-radius: 8px; 
+      background: #f8f8f8;
+    }
+    
+    .producto-card h3 { 
+      margin: 10px 0; 
+      color: #333;
+      font-size: 18px;
+    }
+    
+    .producto-card p { 
+      margin: 5px 0; 
+      color: #666;
+      font-size: 14px;
+    }
+    
+    .acciones { 
+      display: flex; 
+      justify-content: space-between; 
+      margin-top: 15px; 
+      gap: 10px;
+    }
+    
+    .acciones button { 
+      flex: 1; 
+      padding: 8px; 
+      font-size: 14px; 
+      cursor: pointer; 
+      border: none;
+      border-radius: 4px;
+      font-weight: bold;
+      transition: opacity 0.3s;
+    }
+    
+    .acciones button:first-child {
+      background: #5bc0de;
+      color: white;
+    }
+    
+    .acciones button:last-child {
+      background: #d9534f;
+      color: white;
+    }
+    
+    .acciones button:hover {
+      opacity: 0.9;
+    }
+    
+    .empty-message {
+      text-align: center;
+      grid-column: 1 / -1;
+      color: #999;
+      font-style: italic;
+      padding: 40px;
+      background: #f9f9f9;
+      border-radius: 10px;
+    }
+    
+    @media (max-width: 768px) {
+      body {
+        padding: 10px;
+      }
+      
+      .productos-admin {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 15px;
+      }
+      
+      .form-section {
+        padding: 15px;
+      }
+    }
   </style>
 </head>
 <body>
 
-  <h1>Admin de Perfumes</h1>
-
-  <form id="formPerfume">
-    <input type="text" id="nombre" placeholder="Nombre del perfume" required>
-    <input type="number" id="precio" placeholder="Precio (S/)" required>
-    <input type="number" id="stock" placeholder="Stock" required>
-    <select id="tipo" required>
-      <option value="stock">Stock</option>
-      <option value="pedido">Pedido</option>
-    </select>
-    <input type="file" id="imagen" accept="image/*" required>
-    <button type="submit">Agregar Perfume</button>
-  </form>
-
-  <div class="productos-admin" id="productosAdmin"></div>
+  <div class="admin-container">
+    <h1>🔧 Panel de Administración - HENRIS Perfumes</h1>
+    
+    <section class="form-section">
+      <h2>➕ Agregar Nuevo Perfume</h2>
+      <form id="formPerfume">
+        <div class="form-group">
+          <label for="nombre">Nombre del Perfume</label>
+          <input type="text" id="nombre" placeholder="Ej: Esencia de Noche" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="precio">Precio (S/)</label>
+          <input type="number" id="precio" placeholder="Ej: 159.99" step="0.01" min="0" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="stock">Stock Disponible</label>
+          <input type="number" id="stock" placeholder="Ej: 50" min="0" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="tipo">Tipo de Disponibilidad</label>
+          <select id="tipo" required>
+            <option value="">Seleccionar tipo</option>
+            <option value="stock">En Stock (Disponible inmediato)</option>
+            <option value="pedido">Por Pedido (Entrega en 48h)</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="imagen">Imagen del Perfume</label>
+          <input type="file" id="imagen" accept="image/*" required>
+          <small style="color: #666; margin-top: 5px;">Formatos: JPG, PNG, WEBP (Máx. 2MB)</small>
+        </div>
+        
+        <button type="submit">💾 Guardar Perfume</button>
+      </form>
+    </section>
+    
+    <section class="products-section">
+      <h2>📦 Inventario de Perfumes</h2>
+      <div class="productos-admin" id="productosAdmin">
+        <!-- Los productos se cargarán aquí con JavaScript -->
+      </div>
+    </section>
+  </div>
 
   <script src="admin.js"></script>
 </body>
