@@ -1,10 +1,9 @@
+
 const form = document.getElementById('formPerfume');
 const productosAdmin = document.getElementById('productosAdmin');
-const pedidosAdmin = document.getElementById('pedidosAdmin');
 
-// Cargar perfumes y pedidos desde localStorage
+// Cargar perfumes desde localStorage
 let perfumes = JSON.parse(localStorage.getItem('perfumes')) || [];
-let pedidos = JSON.parse(localStorage.getItem('pedidos')) || [];
 
 // Mostrar perfumes en admin
 function mostrarPerfumes() {
@@ -27,40 +26,7 @@ function mostrarPerfumes() {
   });
 }
 
-// Mostrar pedidos recibidos
-function mostrarPedidos() {
-  pedidosAdmin.innerHTML = '';
-  if (pedidos.length === 0) {
-    pedidosAdmin.innerHTML = '<p>No hay pedidos aún.</p>';
-    return;
-  }
-
-  pedidos.forEach((pedido, index) => {
-    const div = document.createElement('div');
-    div.className = 'pedido-card';
-    div.innerHTML = `
-      <h4>Pedido #${index + 1}</h4>
-      <p><strong>Nombre:</strong> ${pedido.nombre}</p>
-      <p><strong>Teléfono:</strong> ${pedido.telefono}</p>
-      <p><strong>Correo:</strong> ${pedido.correo}</p>
-      <p><strong>Dirección:</strong> ${pedido.direccion}</p>
-      <p><strong>Productos:</strong> ${pedido.items.map(i => i.nombre).join(', ')}</p>
-      <p><strong>Total:</strong> S/ ${pedido.total}</p>
-      <p><strong>Estado:</strong> ${pedido.estado || 'Pendiente'}</p>
-      <button onclick="marcarEntregado(${index})">Marcar como entregado</button>
-    `;
-    pedidosAdmin.appendChild(div);
-  });
-}
-
-// Marcar pedido como entregado
-window.marcarEntregado = (index) => {
-  pedidos[index].estado = 'Entregado';
-  localStorage.setItem('pedidos', JSON.stringify(pedidos));
-  mostrarPedidos();
-};
-
-// Agregar nuevo perfume con imagen subida desde PC
+// Agregar nuevo perfume
 form.addEventListener('submit', (e) => {
   e.preventDefault();
 
@@ -68,20 +34,29 @@ form.addEventListener('submit', (e) => {
   const precio = parseFloat(document.getElementById('precio').value);
   const stock = parseInt(document.getElementById('stock').value);
   const tipo = document.getElementById('tipo').value;
-  const file = document.getElementById('imagen').files[0];
+  const fileInput = document.getElementById('imagen');
 
-  if (!file) return alert('Selecciona una imagen');
+  if (!fileInput.files || fileInput.files.length === 0) {
+    alert('Selecciona una imagen');
+    return;
+  }
 
+  const file = fileInput.files[0];
   const reader = new FileReader();
+
   reader.onload = () => {
     const imagen = reader.result; // Base64
-
     perfumes.push({ nombre, precio, stock, tipo, imagen });
     localStorage.setItem('perfumes', JSON.stringify(perfumes));
     mostrarPerfumes();
     form.reset();
-    alert('Perfume agregado con éxito');
+    alert('Perfume agregado correctamente');
   };
+
+  reader.onerror = () => {
+    alert('Error al leer la imagen');
+  };
+
   reader.readAsDataURL(file);
 });
 
@@ -110,4 +85,3 @@ window.editarPerfume = (index) => {
 
 // Mostrar al cargar
 mostrarPerfumes();
-mostrarPedidos();
