@@ -1,45 +1,37 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Carrito – HENRIS</title>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carrito - HENRIS</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <div class="logo">HENRIS</div>
-    <nav class="nav-right">
-      <a href="index.html">Inicio</a>
-      <a href="stock.html">Stock</a>
-      <a href="pedidos.html">Pedidos</a>
-      <a href="carrito.html" class="cart">🛒 <span id="cart-count">0</span></a>
-    </nav>
-  </header>
+<header>
+  <div class="logo">HENRIS</div>
+</header>
 
-  <!-- CARRITO -->
-  <main class="carrito">
-    <h1>Tu Carrito</h1>
-    <div id="carrito-items" class="carrito-items"></div>
-    <p class="carrito-total" id="carrito-total">Total: S/ 0</p>
+<section class="grid" id="items"></section>
 
-    <h2>Datos para el envío</h2>
-    <form id="form-pago" class="form-pago">
-      <input type="text" id="nombre" placeholder="Nombre completo" required>
-      <input type="email" id="correo" placeholder="Correo electrónico" required>
-      <input type="text" id="telefono" placeholder="Teléfono" required>
-      <textarea id="direccion" placeholder="Dirección completa" required></textarea>
-      <button type="submit" class="btn-primary">Pagar carrito (prueba)</button>
-    </form>
-  </main>
+<section class="hero">
+  <h2 id="total"></h2>
+  <button>Pagar carrito</button>
+</section>
 
-  <footer class="footer">
-    <p>© 2025 HENRIS · Perfumes de Lujo</p>
-  </footer>
+<script>
+const cart = JSON.parse(localStorage.getItem('cart')) || [];
+let total = 0;
+const items = document.getElementById("items");
 
-  <script src="carrito.js"></script>
+cart.forEach(p => {
+  total += p.price;
+  items.innerHTML += `<div class="card"><h3>${p.name}</h3><p>S/ ${p.price}</p></div>`;
+});
+
+document.getElementById("total").textContent = "Total: S/ " + total;
+</script>
+
 </body>
 </html>
