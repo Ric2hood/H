@@ -3,316 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <title>Admin | HENRIS</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body { 
-      background: #fff; 
-      color: #111; 
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      padding: 20px; 
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    
-    h1 { 
-      text-align: center; 
-      margin-bottom: 20px; 
-      color: #2c3e50;
-      border-bottom: 3px solid #3498db;
-      padding-bottom: 15px;
-    }
-    
-    .admin-container {
-      display: flex;
-      flex-direction: column;
-      gap: 40px;
-    }
-    
-    .form-section {
-      background: #f8f9fa;
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      border: 1px solid #e9ecef;
-    }
-    
-    h2 {
-      color: #2c3e50;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-    
-    form { 
-      max-width: 600px; 
-      margin: 0 auto; 
-      display: flex; 
-      flex-direction: column; 
-      gap: 18px; 
-    }
-    
-    .form-group {
-      display: flex;
-      flex-direction: column;
-    }
-    
-    label {
-      margin-bottom: 8px;
-      font-weight: 600;
-      color: #495057;
-      font-size: 14px;
-    }
-    
-    input, select, button { 
-      padding: 14px; 
-      font-size: 16px; 
-      border: 2px solid #dee2e6;
-      border-radius: 8px;
-      font-family: inherit;
-      transition: all 0.3s;
-    }
-    
-    input:focus, select:focus {
-      outline: none;
-      border-color: #3498db;
-      box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
-    }
-    
-    button[type="submit"] {
-      background: linear-gradient(135deg, #3498db, #2980b9);
-      color: white;
-      border: none;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 18px;
-      padding: 16px;
-      margin-top: 10px;
-      transition: all 0.3s;
-    }
-    
-    button[type="submit"]:hover {
-      background: linear-gradient(135deg, #2980b9, #1c5a80);
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(41, 128, 185, 0.4);
-    }
-    
-    .products-section h2 {
-      text-align: center;
-      color: #2c3e50;
-      margin-bottom: 30px;
-      padding-bottom: 10px;
-      border-bottom: 2px solid #ecf0f1;
-    }
-    
-    .productos-admin { 
-      max-width: 100%; 
-      margin: 0 auto; 
-      display: grid; 
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
-      gap: 25px; 
-    }
-    
-    .producto-card { 
-      border: 1px solid #e0e0e0; 
-      border-radius: 12px; 
-      padding: 20px; 
-      text-align: center; 
-      background: white;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.08);
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .producto-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-    }
-    
-    .producto-card img { 
-      width: 100%; 
-      height: 200px; 
-      object-fit: contain; 
-      margin-bottom: 15px; 
-      border-radius: 8px; 
-      background: #f8f9fa;
-      padding: 10px;
-      border: 1px solid #eee;
-    }
-    
-    .producto-card h3 { 
-      margin: 10px 0 5px; 
-      color: #2c3e50;
-      font-size: 20px;
-      font-weight: 600;
-    }
-    
-    .producto-card p { 
-      margin: 6px 0; 
-      color: #555;
-      font-size: 15px;
-    }
-    
-    .producto-card p strong {
-      color: #333;
-    }
-    
-    .acciones { 
-      display: flex; 
-      justify-content: space-between; 
-      margin-top: 20px; 
-      gap: 12px;
-    }
-    
-    .acciones button { 
-      flex: 1; 
-      padding: 12px; 
-      font-size: 14px; 
-      cursor: pointer; 
-      border: none;
-      border-radius: 6px;
-      font-weight: bold;
-      transition: all 0.3s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-    
-    .acciones button:first-child {
-      background: #2ecc71;
-      color: white;
-    }
-    
-    .acciones button:first-child:hover {
-      background: #27ae60;
-      transform: scale(1.05);
-    }
-    
-    .acciones button:last-child {
-      background: #e74c3c;
-      color: white;
-    }
-    
-    .acciones button:last-child:hover {
-      background: #c0392b;
-      transform: scale(1.05);
-    }
-    
-    .empty-message {
-      text-align: center;
-      grid-column: 1 / -1;
-      color: #7f8c8d;
-      font-style: italic;
-      padding: 60px 20px;
-      background: #f8f9fa;
-      border-radius: 12px;
-      border: 2px dashed #bdc3c7;
-    }
-    
-    .empty-message h3 {
-      color: #95a5a6;
-      margin-bottom: 10px;
-    }
-    
-    .status-stock {
-      display: inline-block;
-      padding: 4px 12px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: bold;
-    }
-    
-    .status-disponible {
-      background: #d5f4e6;
-      color: #27ae60;
-    }
-    
-    .status-agotado {
-      background: #fdeaea;
-      color: #e74c3c;
-    }
-    
-    @media (max-width: 768px) {
-      body {
-        padding: 15px;
-      }
-      
-      .productos-admin {
-        grid-template-columns: 1fr;
-        gap: 20px;
-      }
-      
-      .form-section {
-        padding: 20px;
-      }
-      
-      input, select, button {
-        padding: 12px;
-      }
-    }
-    
-    /* Animación de éxito */
-    @keyframes successPulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
-    
-    .success-message {
-      animation: successPulse 0.5s ease;
-    }
+    body { padding: 20px; font-family: Arial; }
+    form { display: flex; flex-direction: column; gap: 10px; max-width: 400px; }
+    input, button { padding: 10px; }
   </style>
 </head>
 <body>
-
-  <div class="admin-container">
-    <h1>🛠️ Panel de Administración - HENRIS Perfumes</h1>
+  <h1>Admin TEST</h1>
+  
+  <form id="formPerfume">
+    <input type="text" id="nombre" placeholder="Nombre" required>
+    <input type="number" id="precio" placeholder="Precio" required>
+    <input type="file" id="imagen" accept="image/*" required>
+    <button type="submit">Guardar Perfume</button>
+  </form>
+  
+  <script>
+    // CÓDIGO DE PRUEBA DIRECTO EN EL HTML
+    console.log("🟢 Script ejecutándose...");
     
-    <section class="form-section">
-      <h2>➕ Agregar Nuevo Perfume</h2>
-      <form id="formPerfume">
-        <div class="form-group">
-          <label for="nombre">Nombre del Perfume</label>
-          <input type="text" id="nombre" placeholder="Ej: Esencia de Noche" required>
-        </div>
-        
-        <div class="form-group">
-          <label for="precio">Precio (S/)</label>
-          <input type="number" id="precio" placeholder="Ej: 159.99" step="0.01" min="0" required>
-        </div>
-        
-        <div class="form-group">
-          <label for="stock">Stock Disponible</label>
-          <input type="number" id="stock" placeholder="Ej: 50" min="0" required>
-        </div>
-        
-        <div class="form-group">
-          <label for="tipo">Tipo de Disponibilidad</label>
-          <select id="tipo" required>
-            <option value="">Seleccionar tipo</option>
-            <option value="stock">En Stock (Disponible inmediato)</option>
-            <option value="pedido">Por Pedido (Entrega en 48h)</option>
-          </select>
-        </div>
-        
-        <div class="form-group">
-          <label for="imagen">Imagen del Perfume</label>
-          <input type="file" id="imagen" accept="image/*" required>
-          <small style="color: #666; margin-top: 5px;">Formatos: JPG, PNG, WEBP (Máx. 5MB)</small>
-        </div>
-        
-        <button type="submit">💾 Guardar Perfume</button>
-      </form>
-    </section>
-    
-    <section class="products-section">
-      <h2>📦 Inventario de Perfumes (Total: <span id="contadorPerfumes">0</span>)</h2>
-      <div class="productos-admin" id="productosAdmin">
-        <!-- Los productos se cargarán aquí con JavaScript -->
-      </div>
-    </section>
-  </div>
-
-  <script src="admin.js"></script>
+    document.getElementById('formPerfume').addEventListener('submit', function(e) {
+      e.preventDefault();
+      console.log("🎉 ¡BOTÓN FUNCIONA!");
+      alert("✅ ¡Formulario funciona! Ahora puedes agregar el código completo.");
+      
+      // Resto del código para guardar...
+    });
+  </script>
 </body>
 </html>
