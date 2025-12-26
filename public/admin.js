@@ -1,40 +1,98 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Admin | HENRIS</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
-  <style>
-    body { background: #fff; color: #111; font-family: 'Georgia', serif; padding: 20px; }
-    h1 { text-align: center; margin-bottom: 20px; }
-    form { max-width: 500px; margin: auto; display: flex; flex-direction: column; gap: 12px; }
-    input, select, button { padding: 10px; font-size: 14px; }
-    .productos-admin { max-width: 1000px; margin: 40px auto; display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: 20px; }
-    .producto-card { border: 1px solid #eee; border-radius: 10px; padding: 12px; text-align: center; }
-    .producto-card img { width: 100%; height: 180px; object-fit: contain; margin-bottom: 10px; border-radius: 8px; }
-    .acciones { display: flex; justify-content: space-between; margin-top: 8px; }
-    .acciones button { flex: 1; margin: 0 4px; padding: 6px; font-size: 12px; cursor: pointer; }
-  </style>
-</head>
-<body>
 
-  <h1>Admin de Perfumes</h1>
+const form = document.getElementById('formPerfume');
+const productosAdmin = document.getElementById('productosAdmin');
 
-  <form id="formPerfume">
-    <input type="text" id="nombre" placeholder="Nombre del perfume" required>
-    <input type="number" id="precio" placeholder="Precio (S/)" required>
-    <input type="number" id="stock" placeholder="Stock" required>
-    <select id="tipo" required>
-      <option value="stock">Stock</option>
-      <option value="pedido">Pedido</option>
-    </select>
-    <input type="file" id="imagen" accept="image/*" required>
-    <button type="submit">Agregar Perfume</button>
-  </form>
+// Mostrar perfumes desde backend
+async function mostrarPerfumes() {
+  try {
+    const res = await fetch('/api/perfumes');
+    const perfumes = await res.json();
 
-  <div class="productos-admin" id="productosAdmin"></div>
+    productosAdmin.innerHTML = '';
 
-  <script src="admin.js"></script>
-</body>
-</html> 
+    perfumes.forEach((perfume, index) => {
+      const div = document.createElement('div');
+      div.className = 'producto-card';
+      div.innerHTML = `
+        <img src="${perfume.imagen}" alt="${perfume.nombre}">
+        <h3>${perfume.nombre}</h3>
+        <p>Precio: S/ ${perfume.precio}</p>
+        <p>Stock: ${perfume.stock}</p>
+        <p>Tipo: ${perfume.tipo}</p>
+        <div class="acciones">
+          <button onclick="editarPerfume(${index})">Editar</button>
+          <button onclick="borrarPerfume(${index})">Borrar</button>
+        </div>
+      `;
+      productosAdmin.appendChild(div);
+    });
+  } catch (err) {
+    console.error('Error al cargar perfumes:', err);
+  }
+}
+
+// Agregar nuevo perfume al backend
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const formData = new FormData(form);
+
+  try {
+    const res = await fetch('/api/perfumes', {
+      method: 'POST',
+      body: formData
+    });
+
+    if (!res.ok) {
+      const text = await res.text();
+      alert('Error: ' + text);
+      return;
+    }
+
+    alert('Perfume agregado correctamente ✅');
+    form.reset();
+    mostrarPerfumes();
+
+  } catch (err) {
+    alert('Error de conexión con el servidor');
+    console.error(err);
+  }
+});
+
+// Borrar perfume desde backend
+window.borrarPerfume = async (index) => {
+  try {
+    const res = await fetch('/api/perfumes');
+    const perfumes = await res.json();
+    const perfume = perfumes[index];
+    if (!perfume) return;
+
+    if (!confirm(`¿Deseas borrar ${perfume.nombre}?`)) return;
+
+    // Nota: aquí necesitas una ruta DELETE en tu backend, por ahora solo alertamos
+    alert('Función de borrar pendiente de implementar en backend');
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+// Editar perfume desde backend
+window.editarPerfume = async (index) => {
+  try {
+    const res = await fetch('/api/perfumes');
+    const perfumes = await res.json();
+    const perfume = perfumes[index];
+    if (!perfume) return;
+
+    const nuevoPrecio = prompt('Nuevo precio (S/):', perfume.precio);
+    const nuevoStock = prompt('Nuevo stock:', perfume.stock);
+
+    // Nota: aquí necesitas una ruta PUT en tu backend, por ahora solo alertamos
+    alert('Función de editar pendiente de implementar en backend');
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+// Cargar al iniciar
+mostrarPerfumes();
