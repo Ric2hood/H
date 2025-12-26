@@ -19,8 +19,7 @@
 
     <nav class="nav-right">
       <a href="nosotros.html">Nosotros</a>
-      <a href="stock.html">Stock</a>
-      <a href="pedidos.html">Pedidos</a>
+      <a href="stock.html">Stock</a>  
       <a href="carrito.html" class="cart-icon">
         <i class="fa-solid fa-cart-shopping"></i>
       </a>
@@ -39,7 +38,7 @@
 
       <div class="hero-buttons">
         <a href="stock.html" class="btn-primary">Ver Stock</a>
-        <a href="pedidos.html" class="btn-secondary">Pedidos Especiales</a>
+       
       </div>
     </div>
 
@@ -50,31 +49,4 @@
     <p>© 2025 HENRIS · Perfumes de Lujo</p>
   </footer>
 
-  <!-- ================= FIREBASE ================= -->
-
-  <script type="module">
-    // Importar Firebase
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
-    import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
-
-    // Configuración Firebase (LA TUYA)
-    const firebaseConfig = {
-      apiKey: "AIzaSyCmFlJ158GJOlRaF1kdmdGirTXl_SRhO_4",
-      authDomain: "henris-40e93.firebaseapp.com",
-      projectId: "henris-40e93",
-      storageBucket: "henris-40e93.firebasestorage.app",
-      messagingSenderId: "18141344120",
-      appId: "1:18141344120:web:a4bd31020ed4298a9c188d",
-      measurementId: "G-RYB6BVCMBS"
-    };
-
-    // Inicializar Firebase
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    // Hacemos db global (para usarla en stock.js luego)
-    window.db = db;
-  </script>
-
-</body>
-</html> 
+  
