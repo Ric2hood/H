@@ -377,7 +377,7 @@ header {
 
 /* HERO – fondo estático */
 .hero {
-  background-image: url("fondoinicio.png");
+  background-image: url("images/fondoinicio.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
