@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin | HENRIS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body { background: #fff; color: #111; font-family: 'Georgia', serif; padding: 20px; }
+    h1 { text-align: center; margin-bottom: 20px; }
+    form { max-width: 500px; margin: auto; display: flex; flex-direction: column; gap: 12px; }
+    input, select, button { padding: 10px; font-size: 14px; }
+    .productos-admin { max-width: 1000px; margin: 40px auto; display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: 20px; }
+    .producto-card { border: 1px solid #eee; border-radius: 10px; padding: 12px; text-align: center; }
+    .producto-card img { width: 100%; height: 180px; object-fit: contain; margin-bottom: 10px; border-radius: 8px; }
+    .acciones { display: flex; justify-content: space-between; margin-top: 8px; }
+    .acciones button { flex: 1; margin: 0 4px; padding: 6px; font-size: 12px; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+  <h1>Admin de Perfumes</h1>
+
+  <form id="formPerfume">
+    <input type="text" id="nombre" placeholder="Nombre del perfume" required>
+    <input type="number" id="precio" placeholder="Precio (S/)" required>
+    <input type="number" id="stock" placeholder="Stock" required>
+    <select id="tipo" required>
+      <option value="stock">Stock</option>
+      <option value="pedido">Pedido</option>
+    </select>
+    <input type="file" id="imagen" accept="image/*" required>
+    <button type="submit">Agregar Perfume</button>
+  </form>
+
+  <div class="productos-admin" id="productosAdmin"></div>
+
+  <script src="admin.js"></script>
+</body>
+</html> 
