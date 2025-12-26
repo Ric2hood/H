@@ -375,6 +375,7 @@ header {
   }
 }
 
+/* HERO – fondo estático */
 .hero {
   background-image: url("fondoinicio.png");
   background-size: cover;
@@ -382,5 +383,5 @@ header {
   background-repeat: no-repeat;
 
   min-height: 90vh;
-  padding: 60px 24px;
+  padding: 80px 24px;
 }
