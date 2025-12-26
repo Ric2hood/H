@@ -375,34 +375,54 @@ header {
   }
 }
 
+/* ===============================
+   FONDO ANIMADO SOLO PARA INICIO
+   =============================== */
+
 .hero {
   position: relative;
+  min-height: 100vh;
   overflow: hidden;
-  min-height: 90vh;
 }
 
-/* Fondo solo debajo del header */
-.fondo-hero {
+/* Imagen de fondo */
+.hero::before {
+  content: "";
   position: absolute;
   inset: 0;
   background: url("fondoinicio.png") center / cover no-repeat;
-  animation: movimientoSuave 30s ease-in-out infinite alternate;
+  animation: fondoSuave 35s ease-in-out infinite alternate;
   z-index: 0;
-  filter: brightness(0.95) contrast(1.1) saturate(1.2);
+
+  /* Ajuste de claridad */
+  filter: brightness(0.95) contrast(1.05) saturate(1.1);
 }
 
-/* Mantener contenido encima */
-.hero-text,
-.hero-image {
+/* Capa elegante encima */
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0,0,0,0.12),
+    rgba(0,0,0,0.28)
+  );
+  z-index: 1;
+}
+
+/* Contenido visible encima */
+.hero > * {
   position: relative;
   z-index: 2;
 }
 
-@keyframes movimientoSuave {
-  from {
+/* Animación suave */
+@keyframes fondoSuave {
+  0% {
     transform: scale(1) translateY(0);
   }
-  to {
-    transform: scale(1.08) translateY(-20px);
+  100% {
+    transform: scale(1.08) translateY(-12px);
   }
 }
