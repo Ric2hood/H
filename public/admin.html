@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -21,20 +22,23 @@
 
   <h1>Admin de Perfumes</h1>
 
-  <form id="formPerfume" enctype="multipart/form-data">
-    <input type="text" id="nombre" placeholder="Nombre del perfume" required>
-    <input type="number" id="precio" placeholder="Precio (S/)" required>
-    <input type="number" id="stock" placeholder="Stock" required>
-    <select id="tipo" required>
+  <!-- FORMULARIO PARA AGREGAR PERFUMES -->
+  <form id="formPerfume">
+    <input type="text" id="nombre" name="nombre" placeholder="Nombre del perfume" required>
+    <input type="number" id="precio" name="precio" placeholder="Precio (S/)" required>
+    <input type="number" id="stock" name="stock" placeholder="Stock" required>
+    <select id="tipo" name="tipo" required>
       <option value="stock">Stock</option>
       <option value="pedido">Pedido</option>
     </select>
+    <!-- IMPORTANTE: name="imagen" para que el backend lo reciba -->
     <input type="file" id="imagen" name="imagen" accept="image/*" required>
     <button type="submit">Agregar Perfume</button>
   </form>
 
+  <!-- LISTA DE PERFUMES -->
   <div class="productos-admin" id="productosAdmin"></div>
 
   <script src="admin.js"></script>
 </body>
-</html> 
+</html>
