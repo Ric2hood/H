@@ -401,3 +401,34 @@ header {
     transform: scale(1.1) translateY(-20px);
   }
 }
+.hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 90vh;
+}
+
+/* Fondo solo debajo del header */
+.fondo-hero {
+  position: absolute;
+  inset: 0;
+  background: url("fondoinicio.png") center / cover no-repeat;
+  animation: movimientoSuave 30s ease-in-out infinite alternate;
+  z-index: 0;
+  filter: brightness(0.55) contrast(1.1) saturate(1.2);
+}
+
+/* Mantener contenido encima */
+.hero-text,
+.hero-image {
+  position: relative;
+  z-index: 2;
+}
+
+@keyframes movimientoSuave {
+  from {
+    transform: scale(1) translateY(0);
+  }
+  to {
+    transform: scale(1.08) translateY(-20px);
+  }
+}
