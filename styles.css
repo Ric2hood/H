@@ -375,25 +375,31 @@ header {
   }
 }
 
-/* ===============================
-   FONDO ANIMADO SOLO PARA INICIO
-   =============================== */
-
 .hero {
-  position: relative;
-  min-height: 100vh;
-  overflow: hidden;
+  background-image: url("fondoinicio.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  min-height: 90vh;
+  padding: 60px 24px;
+
+  display: flex;
+  align-items: center;
 }
 
-/* Imagen de fondo */
+/* efecto suave tipo lujo */
 .hero::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: url("fondoinicio.png") center / cover no-repeat;
-  animation: fondoSuave 35s ease-in-out infinite alternate;
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(2px);
   z-index: 0;
+}
 
-  /* Ajuste de claridad */
-  filter: brightness(0.95) contrast(1.05) saturate(1.1);
+/* para que el contenido quede encima */
+.hero > * {
+  position: relative;
+  z-index: 1;
 }
