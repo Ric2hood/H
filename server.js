@@ -8,13 +8,13 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
-app.use(express.static('public')); // Servir todo lo de public/
+app.use(express.static('public')); // Servir archivos estáticos (HTML, CSS, JS)
 app.use(express.json());
 app.use(fileUpload());
 
 // ------------------- RUTAS API -------------------
 
-// 1. Obtener perfumes
+// Obtener todos los perfumes
 app.get('/api/perfumes', (req, res) => {
   const dataPath = path.join(__dirname, 'data', 'perfumes.json');
   if (!fs.existsSync(dataPath)) return res.json([]);
@@ -22,10 +22,11 @@ app.get('/api/perfumes', (req, res) => {
   res.json(perfumes);
 });
 
-// 2. Agregar perfume
+// Agregar un nuevo perfume
 app.post('/api/perfumes', (req, res) => {
   const { nombre, precio, stock, tipo } = req.body;
 
+  // Verificar que se haya enviado una imagen
   if (!req.files || !req.files.imagen) {
     return res.status(400).send('No se ha subido ninguna imagen');
   }
@@ -38,9 +39,11 @@ app.post('/api/perfumes', (req, res) => {
 
   const uploadPath = path.join(uploadDir, imagen.name);
 
+  // Guardar imagen
   imagen.mv(uploadPath, (err) => {
     if (err) return res.status(500).send(err);
 
+    // Guardar los datos del perfume
     const dataPath = path.join(__dirname, 'data', 'perfumes.json');
     const perfumes = fs.existsSync(dataPath)
       ? JSON.parse(fs.readFileSync(dataPath, 'utf8'))
@@ -54,14 +57,12 @@ app.post('/api/perfumes', (req, res) => {
       imagen: `/uploads/${imagen.name}`
     });
 
-    // Guardar perfumes
     fs.writeFileSync(dataPath, JSON.stringify(perfumes, null, 2));
     res.send('Perfume agregado correctamente');
   });
 });
 
-// ------------------- RUTA RAÍZ -------------------
-// Para mostrar index.html en cualquier ruta no API
+// Ruta para servir index.html en cualquier otra ruta (no API)
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
