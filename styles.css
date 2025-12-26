@@ -414,7 +414,7 @@ header {
   background: url("fondoinicio.png") center / cover no-repeat;
   animation: movimientoSuave 30s ease-in-out infinite alternate;
   z-index: 0;
-  filter: brightness(0.55) contrast(1.1) saturate(1.2);
+  filter: brightness(0.95) contrast(1.1) saturate(1.2);
 }
 
 /* Mantener contenido encima */
