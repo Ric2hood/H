@@ -385,3 +385,6 @@ header {
   min-height: 90vh;
   padding: 80px 24px;
 }
+.hero-image {
+  display: none;
+}
