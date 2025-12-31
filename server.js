@@ -2,23 +2,9 @@ const express = require('express');
 const fileUpload = require('express-fileupload');
 const fs = require('fs');
 const path = require('path');
-const cloudinary = require('cloudinary').v2;
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
-// ---------- CLOUDINARY CONFIG ----------
-console.log('Cloudinary ENV:', {
-  name: process.env.CLOUDINARY_CLOUD_NAME,
-  key: process.env.CLOUDINARY_API_KEY ? 'OK' : 'MISSING',
-  secret: process.env.CLOUDINARY_API_SECRET ? 'OK' : 'MISSING'
-}); 
-
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET
-});
 
 // ---------- MIDDLEWARE ----------
 app.use(express.static('public'));
@@ -37,26 +23,23 @@ app.get('/api/perfumes', (req, res) => {
   res.json(perfumes);
 });
 
-// Agregar perfume
+// Agregar perfume (SIN CLOUDINARY)
 app.post('/api/perfumes', async (req, res) => {
   try {
     const { nombre, precio, stock, tipo } = req.body;
+
+    console.log('BODY:', req.body);
+    console.log('FILES:', req.files);
 
     if (!req.files || !req.files.imagen) {
       return res.status(400).send('No se ha subido ninguna imagen');
     }
 
-    // ⬇️ CREAR CARPETA DATA SI NO EXISTE
+    // crear carpeta data si no existe
     const dataDir = path.join(__dirname, 'data');
     if (!fs.existsSync(dataDir)) {
       fs.mkdirSync(dataDir);
     }
-
-    // Subir imagen a Cloudinary
-    const resultado = await cloudinary.uploader.upload(
-      req.files.imagen.tempFilePath,
-      { folder: 'henris-perfumes' }
-    );
 
     const dataPath = path.join(__dirname, 'data', 'perfumes.json');
     const perfumes = fs.existsSync(dataPath)
@@ -68,27 +51,24 @@ app.post('/api/perfumes', async (req, res) => {
       precio: Number(precio),
       stock: Number(stock),
       tipo,
-      imagen: resultado.secure_url
+      imagen: 'https://via.placeholder.com/300'
     });
 
     fs.writeFileSync(dataPath, JSON.stringify(perfumes, null, 2));
-    res.send('Perfume agregado correctamente');
+    res.send('Perfume agregado correctamente (modo prueba)');
 
   } catch (err) {
-  console.error('🔥 ERROR CLOUDINARY:', err);
-  res.status(500).json({
-    error: err.message,
-    name: err.name
-  });
-}
+    console.error('ERROR:', err);
+    res.status(500).send('Error interno');
+  }
 });
 
-// ---------- RUTA FRONT ----------
+// ---------- FRONT ----------
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // ---------- START ----------
 app.listen(PORT, () => {
-  console.log('Servidor activo');
+  console.log('Servidor activo en puerto', PORT);
 });
