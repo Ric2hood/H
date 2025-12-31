@@ -41,6 +41,12 @@ app.post('/api/perfumes', async (req, res) => {
       return res.status(400).send('No se ha subido ninguna imagen');
     }
 
+    // ⬇️ CREAR CARPETA DATA SI NO EXISTE
+    const dataDir = path.join(__dirname, 'data');
+    if (!fs.existsSync(dataDir)) {
+      fs.mkdirSync(dataDir);
+    }
+
     // Subir imagen a Cloudinary
     const resultado = await cloudinary.uploader.upload(
       req.files.imagen.tempFilePath,
