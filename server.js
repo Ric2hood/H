@@ -23,25 +23,31 @@ app.get('/api/perfumes', (req, res) => {
   res.json(perfumes);
 });
 
-// Agregar perfume (SIN CLOUDINARY)
+// Agregar perfume
 app.post('/api/perfumes', async (req, res) => {
   try {
     const { nombre, precio, stock, tipo } = req.body;
-
-    console.log('BODY:', req.body);
-    console.log('FILES:', req.files);
 
     if (!req.files || !req.files.imagen) {
       return res.status(400).send('No se ha subido ninguna imagen');
     }
 
-    // crear carpeta data si no existe
+    // crear carpetas si no existen
     const dataDir = path.join(__dirname, 'data');
-    if (!fs.existsSync(dataDir)) {
-      fs.mkdirSync(dataDir);
-    }
+    const imgDir = path.join(__dirname, 'public', 'uploads');
 
-    const dataPath = path.join(__dirname, 'data', 'perfumes.json');
+    if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir);
+    if (!fs.existsSync(imgDir)) fs.mkdirSync(imgDir, { recursive: true });
+
+    // guardar imagen
+    const imagenFile = req.files.imagen;
+    const nombreImagen = Date.now() + '_' + imagenFile.name;
+    const rutaImagen = path.join(imgDir, nombreImagen);
+
+    await imagenFile.mv(rutaImagen);
+
+    // leer perfumes
+    const dataPath = path.join(dataDir, 'perfumes.json');
     const perfumes = fs.existsSync(dataPath)
       ? JSON.parse(fs.readFileSync(dataPath, 'utf8'))
       : [];
@@ -51,11 +57,12 @@ app.post('/api/perfumes', async (req, res) => {
       precio: Number(precio),
       stock: Number(stock),
       tipo,
-      imagen: 'https://via.placeholder.com/300'
+      imagen: `/uploads/${nombreImagen}`
     });
 
     fs.writeFileSync(dataPath, JSON.stringify(perfumes, null, 2));
-    res.send('Perfume agregado correctamente (modo prueba)');
+
+    res.send('Perfume agregado correctamente');
 
   } catch (err) {
     console.error('ERROR:', err);
