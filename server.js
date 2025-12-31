@@ -24,8 +24,7 @@ cloudinary.config({
 app.use(express.static('public'));
 app.use(express.json());
 app.use(fileUpload({
-  useTempFiles: true,
-  tempFileDir: '/tmp/'
+  useTempFiles: true
 }));
 
 // ---------- RUTAS API ----------
