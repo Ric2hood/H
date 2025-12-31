@@ -75,9 +75,12 @@ app.post('/api/perfumes', async (req, res) => {
     res.send('Perfume agregado correctamente');
 
   } catch (err) {
-    console.error(err);
-    res.status(500).send('Error al subir perfume');
-  }
+  console.error('🔥 ERROR CLOUDINARY:', err);
+  res.status(500).json({
+    error: err.message,
+    name: err.name
+  });
+}
 });
 
 // ---------- RUTA FRONT ----------
