@@ -16,8 +16,7 @@ mongoose.connect(
     useNewUrlParser: true,
     useUnifiedTopology: true
   }
-) 
-
+)
 .then(() => console.log('✅ MongoDB conectado correctamente'))
 .catch(err => console.error('❌ Error MongoDB:', err));
 
@@ -99,6 +98,36 @@ app.post('/api/perfumes', async (req, res) => {
   } catch (err) {
     console.error('❌ ERROR:', err);
     res.status(500).send('Error interno del servidor');
+  }
+});
+
+// 🔹 EDITAR PERFUME (ADMIN)
+app.put('/api/perfumes/:id', async (req, res) => {
+  try {
+    const { nombre, precio, stock, tipo } = req.body;
+
+    await Perfume.findByIdAndUpdate(req.params.id, {
+      nombre,
+      precio: Number(precio),
+      stock: Number(stock),
+      tipo
+    });
+
+    res.send('Perfume actualizado correctamente');
+  } catch (err) {
+    console.error('❌ Error editar:', err);
+    res.status(500).send('Error al editar perfume');
+  }
+});
+
+// 🔹 ELIMINAR PERFUME (ADMIN)
+app.delete('/api/perfumes/:id', async (req, res) => {
+  try {
+    await Perfume.findByIdAndDelete(req.params.id);
+    res.send('Perfume eliminado correctamente');
+  } catch (err) {
+    console.error('❌ Error eliminar:', err);
+    res.status(500).send('Error al eliminar perfume');
   }
 });
 
