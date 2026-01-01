@@ -11,12 +11,13 @@ const PORT = process.env.PORT || 3000;
    CONEXIÓN MONGODB ATLAS
 ========================= */
 mongoose.connect(
-  'mongodb+srv://HENRIS:HENRIS12345@henris-cluster.n06cytd.mongodb.net/henris?retryWrites=true&w=majority',
+  process.env.MONGODB_URI,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true
   }
-)
+) 
+
 .then(() => console.log('✅ MongoDB conectado correctamente'))
 .catch(err => console.error('❌ Error MongoDB:', err));
 
